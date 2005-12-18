@@ -1,0 +1,49 @@
+<html>
+<head><title><span jwcid="@Insert" value="ognl:title"/></title></head>
+<style text="text/css">
+	th, td {font-family : verdana; font-size : 12px;vertical-align : top;}
+	tr.odd {background-color: #ddddff}
+	tr.even {background-color: #dddddd}
+	.exif {vertical-align : top;}
+	.exif-odd {background-color : #444444; color : white;}
+	.exif-even {background-color : white; color: #444444;}
+	.comment {color :#444444; font-size : 14px; width:350px;}
+	a.menu {color:white;text-decoration:none;padding-left:10px;}
+	a.menu:hover {text-decoration:underline;padding-left:10px;}
+	a.footer {color:white;text-decoration:none;}
+	a.footer:hover {text-decoration:underline;}
+table.exif {width : 350px;}
+
+</style>
+<body>
+<table cellpadding="0" cellspacing="0" style="padding:0px;spacing:0px;border:1px solid #000090;width:1000px;">
+<tr>
+<td colspan="2" style="width:1000px;height:101px;background-image:url(images/header.png);background-color:#000090;">
+<td>
+</td>
+</tr>
+<tr>
+<td style="font-size:15px;color:white;width:202px;background-image:url(images/leftbg.png);background-color:#000090;background-repeat:no-repeat;">
+<a class="menu" href="" jwcid="@PageLink" page="Home">Home</a><br>
+<a class="menu" href="" jwcid="@PageLink" page="About">About</a><br>
+<a class="menu" href="" jwcid="@PageLink" page="Album">Album</a>
+<br/><br/>
+	<span jwcid="@If" condition="ognl:page.pageName.equals('Album')">
+		<span jwcid="DirMenu" />
+	</span>
+	<span jwcid="@If" condition="ognl:page.pageName.equals('Detail')">
+		<a class="menu" href="javascript:history.go(-1)">back</a>
+	</span>
+</td>
+<td style="width:798px;background-image:url(images/contentbg.png);background-repeat:no-repeat;">
+	<div style="padding:10px 10px 10px 10px;">
+		<span jwcid="@RenderBody">This is the page content.</span>
+	</div>
+</td>
+</tr>
+<tr>
+	<td colspan="2" style="color:white;background-color:#000090;text-align:center;">Framed is build with <a class="footer" href="http://jakarta.apache.org/tapestry">Tapestry</a> and copyright <a class="footer" href="http://www.addictivesoftware.net">Addictive Software</a> 2005</td>
+</tr>
+</table>
+</body>
+</html>

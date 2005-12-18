@@ -1,0 +1,19 @@
+<?xml version="1.0"?>
+<module id="framed" version="1.0.0" package="net.addictivesoftware.framed.services">
+	<service-point id="FotoPathService">
+		<invoke-factory>
+			<construct class="FotoPathServiceImpl">
+				<set property="path" value="/fotos" />
+			</construct>
+		</invoke-factory>
+     </service-point>
+     <service-point id="ThumbNailService">
+		<invoke-factory>
+	     	<construct class="ThumbNailServiceImpl">
+				<set property="thumbWidth" value="120" />
+				<set property="thumbHeight" value="60" />
+				<set property="quality" value="60" />
+			</construct>
+		</invoke-factory>
+     </service-point>
+</module>

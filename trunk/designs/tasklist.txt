@@ -1,0 +1,18 @@
+TODO's
+version 1
+	v click on thumb, goto detailpage 
+	v Starting path of fotos configurable
+	- update all locations to use configurable path
+	- Reimplement ThumbNailFactory as a Hivemind Service
+	v exclude thumbnails when showing list
+	v Exclude Headers in table completely
+	v Show something when directory with no images selected
+
+
+	- update SVN at berlios
+
+version 2
+	- right management on foto's
+	- comments editable
+	- clicking on foto should open/download original size
+	

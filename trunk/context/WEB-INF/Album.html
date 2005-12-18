@@ -1,0 +1,31 @@
+<html>
+<head><title>Album</title></head>
+<body jwcid="$content$">
+<span jwcid="@Border" title="Album">
+	<span jwcid="dircomment" />
+	<table jwcid="table">
+		<tr>
+		<th><span jwcid="pathColumnHeader"/></th>
+		<th><span jwcid="photoExifColumnHeader"/></th>
+		</tr>
+		<tr class="odd">
+			<td jwcid="pathColumnValue"  width="350">
+				<span jwcid="@DirectLink" listener="listener:doDetailPage" parameters="ognl:components.table.tableRow.path">
+					<span jwcid="thumb" width="300" height="200" />
+				</span><br/>
+				<div class="comment" width="350">
+					<span jwcid="comment" width="350"/>
+					<br/>
+					<br/>
+				</div>
+			</td>
+			<td jwcid="photoExifColumnValue" width="350"><span jwcid="exif" /><br/>
+					<br/>
+			</td>
+		</tr>
+		<tr class="even" jwcid="$remove$"><td>path</td><td>thumbPath</td><td>comment</td><td>photoExif</td></tr>
+		<tr class="odd" jwcid="$remove$"><td>path</td><td>thumbPath</td><td>comment</td><td>photoExif</td></tr>
+	</table>
+</span>
+</body>
+</html>

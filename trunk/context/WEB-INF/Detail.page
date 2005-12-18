@@ -1,0 +1,25 @@
+<?xml version="1.0"?>
+<!DOCTYPE page-specification PUBLIC
+"-//Apache Software Foundation//Tapestry Specification 4.0//EN"
+"http://jakarta.apache.org/tapestry/dtd/Tapestry_4_0.dtd">
+<page-specification class="net.addictivesoftware.framed.pages.Detail">
+
+	<property name="showTags" initial-value="literal:make, model, x_resolution, y_resolution" />
+  
+  	<property name="fotoPath" />
+	
+	<component id="foto" type="Thumb">
+		<binding name="image" value="fotoPath" />
+	</component>
+	
+	<component id="exif" type="Exif">
+		<binding name="image" value="fotoPath" />
+		<binding name="tags" value="showTags" />
+		<binding name="mode" value="literal:short" />
+	</component>
+
+	<component id="comment" type="Comment">
+		<binding name="image" value="fotoPath" />
+	</component>
+
+</page-specification>
