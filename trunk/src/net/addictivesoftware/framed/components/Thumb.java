@@ -22,10 +22,6 @@ public abstract class Thumb extends BaseComponent {
 	@InjectObject("service:framed.ThumbNailService")
 	public abstract ThumbNailService getThumbNailService();
 	
-	/**
-     * Renders the &lt;img&gt; element.
-     */
-
     protected void renderComponent(IMarkupWriter writer, IRequestCycle cycle)
     {
         // Doesn't contain a body so no need to do anything on rewind (assumes no
@@ -36,12 +32,13 @@ public abstract class Thumb extends BaseComponent {
 
         String sURL = getImage();
 
-        if (sURL == null)
+        if (sURL == null) {
             throw Tapestry.createRequiredParameterException(this, "image");
-
+        }
 
         String sImageURL = getThumbNailService().create(sURL, getWidth(), getHeight());
 
+    
         sImageURL = "/Framed" + sImageURL.substring(sImageURL.indexOf("Framed")+14);
         LOG.info("URL:" + sImageURL);
         
@@ -50,8 +47,6 @@ public abstract class Thumb extends BaseComponent {
 
         writer.attribute("src", sImageURL);
         writer.attribute("border", "0");
-    //    writer.attribute("width", getWidth());
-    //    writer.attribute("height", getHeight());
         
         renderInformalParameters(writer, cycle);
 

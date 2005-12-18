@@ -7,14 +7,6 @@
 package net.addictivesoftware.framed.services;
 
 
-/**
- * @author gassies
- *
- * TODO To change the template for this generated type comment go to
- * Window - Preferences - Java - Code Style - Code Templates
- */
-
-
 import java.awt.Container;
 import java.awt.Graphics2D;
 import java.awt.Image;
@@ -40,11 +32,11 @@ public class ThumbNailServiceImpl implements ThumbNailService {
 		private static final int SCALE_METHOD_WIDTH = 1;
 		private static final int SCALE_METHOD_HEIGHT = 2;
 		
-		private static int SCALE_METHOD = SCALE_METHOD_WIDTH;
 		private int thumbHeight = 120;
 		private int thumbWidth = 60;
 		private double thumbRatio = 0.5d;
 		private int quality = 60;
+		private static int scalingMethod = SCALE_METHOD_WIDTH;
 		private int namingMethod = NAMING_METHOD_WIDTH_HEIGHT;
 
 		
@@ -107,7 +99,7 @@ public class ThumbNailServiceImpl implements ThumbNailService {
 				    int imageHeight = image.getHeight(null);
 				    
 				    double imageRatio = (double)imageWidth / (double)imageHeight;
-				    switch (SCALE_METHOD) {
+				    switch (scalingMethod) {
 				    	case SCALE_METHOD_AUTO:
 						    if (thumbRatio < imageRatio) {
 						      thumbHeight = (int)(thumbWidth / imageRatio);
@@ -136,10 +128,13 @@ public class ThumbNailServiceImpl implements ThumbNailService {
 						out = new BufferedOutputStream(new FileOutputStream(thumbFileName));
 					    JPEGImageEncoder encoder = JPEGCodec.createJPEGEncoder(out);
 					    JPEGEncodeParam param = encoder.getDefaultJPEGEncodeParam(thumbImage);
+
 					    quality = Math.max(0, Math.min(quality, 100));
 					    param.setQuality((float)quality / 100.0f, false);
+					    
 					    encoder.setJPEGEncodeParam(param);
 						encoder.encode(thumbImage);
+						
 						out.close();
 					} catch (FileNotFoundException e) {
 						// TODO Auto-generated catch block
@@ -154,6 +149,20 @@ public class ThumbNailServiceImpl implements ThumbNailService {
 			    }
 			}
 			return thumbFileName;
+		}
+		
+		public String create(String _name, int _w, int _h) {
+			this.setThumbWidth(_w);
+			this.setThumbHeight(_h);
+			this.thumbRatio = (double)thumbWidth / (double)thumbHeight;
+			return create(_name);
+		}
+		public String create(String _name, int _w, int _h, int _q) {
+			this.setThumbWidth(_w);
+			this.setThumbHeight(_h);
+			this.thumbRatio = (double)thumbWidth / (double)thumbHeight;
+			setQuality(_q);
+			return create(_name);
 		}
 
 		private boolean exists(String _name) {
@@ -195,19 +204,6 @@ public class ThumbNailServiceImpl implements ThumbNailService {
 					break;
 			}
 			return path + ext + "_" + filename;
-		}
-		public String create(String _name, int _w, int _h) {
-			setThumbWidth(_w);
-			setThumbHeight(_h);
-			this.thumbRatio = (double)thumbWidth / (double)thumbHeight;
-			return create(_name);
-		}
-		public String create(String _name, int _w, int _h, int _q) {
-			setThumbWidth(_w);
-			setThumbHeight(_h);
-			this.thumbRatio = (double)thumbWidth / (double)thumbHeight;
-			setQuality(_q);
-			return create(_name);
 		}
 
 }

@@ -29,7 +29,7 @@ public class FileSystemPhotoList implements IPhotoList {
 	
 	private boolean isImage(File _file) {
 		String ext = _file.getName().substring(_file.getName().lastIndexOf("."));
-		if (".jpg".equals(ext)  || ".jpeg".equals(ext) || ".png".equals(ext) || ".gif".equals(ext)) {
+		if (".jpg".equals(ext)  || ".jpeg".equals(ext)) {
 			return true;
 		} else {
 			return false;

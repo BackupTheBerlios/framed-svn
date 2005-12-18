@@ -20,21 +20,12 @@ import org.apache.tapestry.annotations.InjectObject;
 import org.apache.tapestry.html.BasePage;
 import org.apache.tapestry.web.WebRequest;
 
-/**
- * @author gassies
- *
- */
 public abstract class Album extends BasePage {
 	private IPhotoList aList = null;
 	
-	@InjectObject("service:tapestry.globals.WebRequest")
-	public abstract WebRequest getWebRequest();
-	
 	@InjectObject("service:tapestry.globals.ServletContext")
 	public abstract ServletContext getServletContext();
-		
-	public abstract String getFotoPath();
-		
+				
 	@InjectObject("service:framed.FotoPathService")
 	public abstract FotoPathService getFotoPathService();
 	
@@ -42,9 +33,7 @@ public abstract class Album extends BasePage {
 		if (null == aList) {
 			aList = new FileSystemPhotoList(getServletContext().getRealPath(getFotoPathService().getCurrentPath() + "/"));
 		}
-		
-		System.out.println("getting entries");
-		return aList.getEntries();
+				return aList.getEntries();
 	}
 
 	public void doDetailPage(IRequestCycle cycle) {

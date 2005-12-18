@@ -26,10 +26,6 @@ public abstract class Exif extends BaseComponent {
     public abstract String getMode();
     
 
-	/**
-     * Renders the &lt;img&gt; element.
-     */
-
     protected void renderComponent(IMarkupWriter writer, IRequestCycle cycle)
     {
         // Doesn't contain a body so no need to do anything on rewind (assumes no
@@ -37,8 +33,6 @@ public abstract class Exif extends BaseComponent {
 
         if (cycle.isRewinding())
            return;
-
-    	System.out.println("GETTAGS:" + getTags());
     	
         String sImageURL = getImage();
         if (sImageURL == null)
