@@ -7,7 +7,6 @@
 <application>
 	<meta key="org.apache.tapestry.page-class-packages" value="net.addictivesoftware.framed.pages"/>
 	<library id="c" specification-path="/org/apache/tapestry/contrib/Contrib.library" />
-	<component-type type="Foto" specification-path="/net/addictivesoftware/framed/components/Foto.jwc" />
 	<component-type type="Thumb" specification-path="/net/addictivesoftware/framed/components/Thumb.jwc" />
 	<component-type type="Exif" specification-path="/net/addictivesoftware/framed/components/Exif.jwc" />
 	<component-type type="Comment" specification-path="/net/addictivesoftware/framed/components/Comment.jwc" />
