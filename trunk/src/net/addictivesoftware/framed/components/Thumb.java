@@ -1,5 +1,7 @@
 package net.addictivesoftware.framed.components;
 
+import javax.servlet.ServletContext;
+
 import net.addictivesoftware.framed.pages.Album;
 import net.addictivesoftware.framed.services.ThumbNailService;
 
@@ -21,6 +23,8 @@ public abstract class Thumb extends BaseComponent {
 	
 	@InjectObject("service:framed.ThumbNailService")
 	public abstract ThumbNailService getThumbNailService();
+	@InjectObject("service:tapestry.globals.ServletContext")
+	public abstract ServletContext getServletContext();
 	
     protected void renderComponent(IMarkupWriter writer, IRequestCycle cycle)
     {
@@ -37,12 +41,10 @@ public abstract class Thumb extends BaseComponent {
         }
 
         String sImageURL = getThumbNailService().create(sURL, getWidth(), getHeight());
-
-    
-        sImageURL = "/Framed" + sImageURL.substring(sImageURL.indexOf("Framed")+14);
-        LOG.info("URL:" + sImageURL);
         
-        
+        String ContextName = getServletContext().getServletContextName();
+        sImageURL = sImageURL.substring(sImageURL.indexOf(ContextName)+21);
+               
         writer.beginEmpty("img");
 
         writer.attribute("src", sImageURL);
