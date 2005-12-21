@@ -21,6 +21,7 @@ import javax.xml.xpath.XPathFactory;
 import org.w3c.dom.Document;
 import org.xml.sax.SAXException;
 
+
 /**
  * @author gassies
  *
@@ -28,15 +29,20 @@ import org.xml.sax.SAXException;
  * Window - Preferences - Java - Code Style - Code Templates
  */
 public class XmlHelper {
-	public Document createDomDocument(File _file) throws SAXException, IOException, ParserConfigurationException {
+	public static Document createDomDocument(File _file) throws SAXException, IOException, ParserConfigurationException {
 		DocumentBuilderFactory factory = DocumentBuilderFactory.newInstance();
 		DocumentBuilder builder = factory.newDocumentBuilder();
 		return builder.parse( _file );
 	}
+	public static Document createDomDocument() throws ParserConfigurationException {
+		DocumentBuilderFactory factory = DocumentBuilderFactory.newInstance();
+		DocumentBuilder builder = factory.newDocumentBuilder();
+		return builder.newDocument();
+	}
 	
-	private XPath xpathprocessor  = null;
+	private static XPath xpathprocessor  = null;
 
-	public String evalXPath(Document _doc, String _xpath, NamespaceContext _nsContext) throws XPathExpressionException {
+	public static String evalXPath(Document _doc, String _xpath, NamespaceContext _nsContext) throws XPathExpressionException {
 		//get an XPath processor
 		if (null == xpathprocessor) {
 			XPathFactory xpfactory = XPathFactory.newInstance();
@@ -55,4 +61,7 @@ public class XmlHelper {
 
 		return compiledXPath.evaluate(_doc);
 	}
+	
+
+	
 }
