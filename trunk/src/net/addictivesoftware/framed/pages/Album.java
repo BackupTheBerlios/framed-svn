@@ -18,7 +18,6 @@ import org.apache.tapestry.IBinding;
 import org.apache.tapestry.IRequestCycle;
 import org.apache.tapestry.annotations.InjectObject;
 import org.apache.tapestry.html.BasePage;
-import org.apache.tapestry.web.WebRequest;
 
 public abstract class Album extends BasePage {
 	private IPhotoList aList = null;
