@@ -1,0 +1,41 @@
+<html>
+	<head>
+		<title>Crumbtrail Component</title>
+
+	<body>
+		<h1>Crumbtrail</h1>
+		<p>this component gets the current path from the fotopath service and returns a clickable crumbtrail
+		<span jwcid="$content$">
+			<table class="crumb">
+				<tr >
+					<td>Crumbtrail:</td>
+  					<td jwcid="elements@Foreach" source="ognl:crumbs" element="td">
+  						<span class="crumb" jwcid="@DirectLink" listener="listener:goCrumb" parameters="ognl:components.elements.value.path">
+  							<span jwcid="@Insert" value="ognl:components.elements.value.name" />
+  						</span>
+  					</td>
+  					<td jwcid="$remove$">
+  						<a href="#" class="crumb">
+  							dummy
+  						</a>
+  					</td>
+  					<td jwcid="$remove$">
+  						<a href="#" class="crumb">
+  							crumb
+  						</a>
+  					</td>
+  					<td jwcid="$remove$">
+  						<a href="#" class="crumb">
+  							trail
+  						</a>
+  					</td>
+  					<td jwcid="$remove$">
+  						<a href="#" class="crumb">
+  							path
+  						</a>
+  					</td>
+				</tr>
+			</table>
+		</span>
+	</body>
+</html>
