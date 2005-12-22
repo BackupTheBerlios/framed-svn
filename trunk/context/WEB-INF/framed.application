@@ -12,5 +12,6 @@
 	<component-type type="Comment" specification-path="/net/addictivesoftware/framed/components/Comment.jwc" />
 	<component-type type="DirComment" specification-path="/net/addictivesoftware/framed/components/DirComment.jwc" />
 	<component-type type="DirMenu" specification-path="/net/addictivesoftware/framed/components/DirMenu.jwc" />
+	<component-type type="CrumbTrail" specification-path="/net/addictivesoftware/framed/components/CrumbTrail.jwc" />
 </application>
 
