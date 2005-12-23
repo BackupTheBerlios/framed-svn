@@ -32,7 +32,8 @@ public abstract class DirMenu extends BaseComponent {
 		}
 		// if path is not equal to root path add parent
 		if (!path.equals(getFotoPathService().getPath())) {
-			aList.add(new MenuItem("Back", path.substring(0,path.lastIndexOf("/"))));
+			String parent = currentDir.getParent();
+			aList.add(new MenuItem(parent.substring(parent.lastIndexOf("/")), path.substring(0,path.lastIndexOf("/"))));
 		}
 		
 		if (currentDir.exists() && currentDir.isDirectory()) {
