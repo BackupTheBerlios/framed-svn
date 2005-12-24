@@ -2,11 +2,8 @@ package net.addictivesoftware.framed.components;
 
 import javax.servlet.ServletContext;
 
-import net.addictivesoftware.framed.pages.Album;
 import net.addictivesoftware.framed.services.ThumbNailService;
 
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
 import org.apache.tapestry.BaseComponent;
 import org.apache.tapestry.IMarkupWriter;
 import org.apache.tapestry.IRequestCycle;
@@ -14,8 +11,6 @@ import org.apache.tapestry.Tapestry;
 import org.apache.tapestry.annotations.InjectObject;
 
 public abstract class Thumb extends BaseComponent {
-
-	private static final Log LOG = LogFactory.getLog(Album.class);
 
 	public abstract String getImage();
 	public abstract int getHeight();

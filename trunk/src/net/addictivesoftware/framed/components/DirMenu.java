@@ -49,7 +49,6 @@ public abstract class DirMenu extends BaseComponent {
 	}
 	
 	public void addPathToURL(String _path) {
-		System.out.println("setting path to " + _path);
 		getFotoPathService().setCurrentPath(_path);
 	}
 	
