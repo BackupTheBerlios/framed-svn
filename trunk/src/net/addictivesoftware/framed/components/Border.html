@@ -1,0 +1,46 @@
+<html>
+<head>
+	<title><span jwcid="@Insert" value="ognl:title"/></title>
+	<link rel="stylesheet" type="text/css" href="css/default.css" />
+</head>
+<body jwcid="@Body">
+<table cellpadding="0" cellspacing="0" style="padding:0px;spacing:0px;border:1px solid #000090;width:1000px;">
+<tr>
+<td colspan="2" style="width:1000px;height:101px;background-image:url(images/header.png);background-color:#000090;">
+<td>
+</td>
+</tr>
+<tr>
+<td style="font-size:15px;color:white;width:202px;background-image:url(images/leftbg.png);background-color:#000090;background-repeat:no-repeat;">
+<span jwcid="@DirectLink" listener="listener:changeLocale" parameters="nl">nl</span>&#160;
+<span jwcid="@DirectLink" listener="listener:changeLocale" parameters="en">en</span>&#160;
+<span jwcid="@DirectLink" listener="listener:changeLocale" parameters="es">sp</span><br/>
+
+
+<a class="menu" jwcid="@PageLink" page="Home"><span jwcid="@Insert" value="message:home"/></a><br>
+<a class="menu" jwcid="@PageLink" page="Login"><span jwcid="@Insert" value="message:login"/></a><br>
+<a class="menu" jwcid="@PageLink" page="Album"><span jwcid="@Insert" value="message:album"/></a><br>
+<a class="menu" jwcid="logout"><span jwcid="@Insert" value="message:logout"/></a>
+<br/><br/>
+	<span jwcid="@If" condition="ognl:page.pageName.equals('Album')">
+		<span jwcid="@DirMenu" />
+	</span>
+</td>
+<td style="width:798px;background-image:url(images/contentbg.png);background-repeat:no-repeat;background-color:white;">
+	<div style="padding:10px 10px 10px 10px;">
+		<span jwcid="@ShowError"/>
+		<span jwcid="@ShowMessage"/>
+		<span jwcid="@RenderBody">This is the page content.</span>
+	</div>
+</td>
+</tr>
+<tr>
+	<td style="color:white;background-color:#000090;text-align:center;"><img src="images/PoweredByTapestry.gif" style="align:center;vertical-align:absolute-bottom;"/></td>
+	<td style="color:white;background-color:#000090;text-align:center;">
+		<span jwcid="@Insert" value="message:footer-left" />&#160;
+		<a class="footer" href="http://www.addictivesoftware.net">Addictive Software</a> 2005
+	</td>
+</tr>
+</table>
+</body>
+</html>

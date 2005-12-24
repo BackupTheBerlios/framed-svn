@@ -17,9 +17,10 @@ import net.addictivesoftware.framed.services.FotoPathService;
 import org.apache.tapestry.IBinding;
 import org.apache.tapestry.IRequestCycle;
 import org.apache.tapestry.annotations.InjectObject;
-import org.apache.tapestry.html.BasePage;
+import org.apache.tapestry.annotations.Meta;
 
-public abstract class Album extends BasePage {
+@Meta({ "anonymous-access=false", "admin-page=false" })
+public abstract class Album extends FramedPage {
 	private IPhotoList aList = null;
 	
 	@InjectObject("service:tapestry.globals.ServletContext")
@@ -43,5 +44,4 @@ public abstract class Album extends BasePage {
 		detailPage.getNestedComponent("foto").setBinding("image",imageBinding);
 		cycle.activate(detailPage);
     }    
-	
 }
