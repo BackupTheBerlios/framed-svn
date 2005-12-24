@@ -37,6 +37,5 @@
 		<binding name="image" value="components.table.tableRow.path" />
 	</component>
 
-	<component id="dircomment" type="DirComment" />
 
 </page-specification>
