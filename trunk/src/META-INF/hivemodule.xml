@@ -1,6 +1,10 @@
 <?xml version="1.0"?>
 <module id="framed" version="1.0.0" package="net.addictivesoftware.framed.services">
 	<service-point id="FotoPathService">
+	
+		Store/Recieve the location of the dir which contain the foto's
+		and the currently selected directory there in
+		
 		<invoke-factory>
 			<construct class="FotoPathServiceImpl">
 				<set property="path" value="/fotos" />
@@ -8,6 +12,10 @@
 		</invoke-factory>
      </service-point>
      <service-point id="ThumbNailService">
+		
+		Service which checks the existence of a thumbnail with the given size 
+		and creates them if necessary, returning the file/path
+		
 		<invoke-factory>
 	     	<construct class="ThumbNailServiceImpl">
 				<set property="thumbWidth" value="120" />
@@ -16,4 +24,47 @@
 			</construct>
 		</invoke-factory>
      </service-point>
+    <service-point id="ErrorPresenter">
+        
+        Activates the Home page to report an error.
+
+        <invoke-factory>
+            <construct class="ErrorPresenterImpl">
+                <set-object property="stateManager" value="infrastructure:applicationStateManager"/>
+            </construct>
+        </invoke-factory>        
+        <create-instance class="ErrorPresenterImpl"/>
+        
+    </service-point>
+	<service-point id="Users">
+		
+		returns a list of valid users
+			
+		<invoke-factory>
+			<construct class="UsersImpl">
+			</construct>
+		</invoke-factory>
+     </service-point>
+
+	<service-point id="Security">
+	
+		checks user for validness
+		
+		<invoke-factory>
+			<construct class="SecurityImpl">
+			</construct>
+		</invoke-factory>
+     </service-point>
+     
+     <service-point id="ApplicationLifecycle">
+        
+        Controls lifecycle operations; specifically logging out.
+        
+        <invoke-factory model="threaded">
+            <construct class="ApplicationLifecycleImpl">
+                <set-object property="stateManager" value="infrastructure:applicationStateManager"/>
+            </construct>
+        </invoke-factory>        
+    </service-point>
+     
 </module>
