@@ -5,8 +5,4 @@
 <component-specification class="net.addictivesoftware.framed.components.Border">
 	<parameter name="title"/>
 	<parameter name="header"/>
-  	<component id="logout" type="DirectLink">
-    	<binding name="listener" value="listener:logout"/>
-    	<binding name="stateful" value="false"/>
-  	</component>
 </component-specification>
