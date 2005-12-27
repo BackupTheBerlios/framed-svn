@@ -7,6 +7,8 @@ import net.addictivesoftware.framed.services.ApplicationLifecycle;
 
 import org.apache.tapestry.BaseComponent;
 import org.apache.tapestry.IPage;
+import org.apache.tapestry.IRequestCycle;
+import org.apache.tapestry.PageRedirectException;
 import org.apache.tapestry.annotations.InjectObject;
 import org.apache.tapestry.annotations.InjectPage;
 import org.apache.tapestry.annotations.Message;
@@ -32,9 +34,14 @@ public abstract class Border extends BaseComponent {
         return home;
     }
     
-    public IPage changeLocale(String _locale) {
+    public String getLocale() {
+    	return this.getPage().getEngine().getLocale().getCountry();
+    }
+
+    public void changeLocale(IRequestCycle cycle, String _locale) {
     	Locale locale = new Locale(_locale);
     	this.getPage().getEngine().setLocale(locale);
-    	return this.getPage();
+    	cycle.cleanup();
+    	throw new PageRedirectException(this.getPage());    
     }
 }
