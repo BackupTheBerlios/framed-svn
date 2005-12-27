@@ -39,22 +39,30 @@ tr.even {
 	font-size : 14px; 
 	width:350px;
 }
+
+a {
+	text-decoration:none;
+}
+a:hover {
+	text-decoration:underline;
+}
+
 a.menu {
 	color:white;
-	text-decoration:none;
 	padding-left:10px;
 }
 a.menu:hover {
-	text-decoration:underline;
 	padding-left:10px;
 }
 a.footer {
 	color:white;
-	text-decoration:none;
 }
-a.footer:hover {
-	text-decoration:underline;
-}
+
+a.locale {
+	color:white;
+	padding-left : 2px;
+	padding-right : 2px;
+
 .message-red {
 	color:red;
 	font-weight:bold;
@@ -67,10 +75,6 @@ table.crumb {
 }
 a.crumb {
 	color : #444444;
-	text-decoration:none;
-}
-a.crumb:hover {
-	text-decoration:underline;
 }
 td.crumb {
 	color : #444444;
