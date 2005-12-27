@@ -16,10 +16,7 @@ public abstract class CrumbTrail extends BaseComponent {
 
 	@InjectObject("service:framed.FotoPathService")
 	public abstract FotoPathService getFotoPathService();
-	
-	@InjectPage("Album")
-	public abstract Album GetAlbum();
-	
+
 	public ArrayList<Crumb> getCrumbs()  {
 		ArrayList<Crumb> crumbs = new ArrayList<Crumb>();
 		String currentPath = getFotoPathService().getCurrentPath();
@@ -35,6 +32,6 @@ public abstract class CrumbTrail extends BaseComponent {
 	public void goCrumb(IRequestCycle cycle) {
 		Object[] params = cycle.getListenerParameters();
 		getFotoPathService().setCurrentPath((String)params[0]);
-		cycle.activate(GetAlbum());
+		cycle.activate(this.getPage());
 	}
 }
