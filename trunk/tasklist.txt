@@ -7,10 +7,10 @@ version 0.1
 	v Exclude Headers in table completely
 	v Show something when directory with no images selected
 	v update SVN at berlios
+	v localization
+	v login
 
 version 0.2
-	b localization
-	v login
 	- right management on foto's
 	- comments editable
 	- clicking on foto should open/download original size or link to do so
@@ -19,3 +19,4 @@ version 0.2
 		b create comments files
 		- user management
 		- file management
+		
