@@ -2,6 +2,7 @@ package net.addictivesoftware.framed.components;
 
 import javax.servlet.ServletContext;
 
+import net.addictivesoftware.framed.services.FotoPathService;
 import net.addictivesoftware.framed.services.ThumbNailService;
 
 import org.apache.tapestry.BaseComponent;
@@ -18,8 +19,9 @@ public abstract class Thumb extends BaseComponent {
 	
 	@InjectObject("service:framed.ThumbNailService")
 	public abstract ThumbNailService getThumbNailService();
-	@InjectObject("service:tapestry.globals.ServletContext")
-	public abstract ServletContext getServletContext();
+	
+	@InjectObject("service:framed.FotoPathService")
+	public abstract FotoPathService getFotoPathService();
 	
     protected void renderComponent(IMarkupWriter writer, IRequestCycle cycle)
     {
@@ -35,11 +37,12 @@ public abstract class Thumb extends BaseComponent {
             throw Tapestry.createRequiredParameterException(this, "image");
         }
 
+        // gets the url for the thumbnail, creates the thumbnail if need be
         String sImageURL = getThumbNailService().create(sURL, getWidth(), getHeight());
         
-        String ContextName = getServletContext().getServletContextName();
-        sImageURL = sImageURL.substring(sImageURL.indexOf(ContextName)+21);
-               
+        // turn into relative path
+        sImageURL = sImageURL.substring(sImageURL.indexOf(getFotoPathService().getPath())+1);
+              
         writer.beginEmpty("img");
 
         writer.attribute("src", sImageURL);
