@@ -19,6 +19,7 @@ public class FileSystemPhotoList implements IPhotoList {
 				File file = files[i];
 				if (! file.isDirectory() && isImage(file) && !isThumb(file)) {
 					PhotoListEntry e = new PhotoListEntry(file);
+					System.out.println("adding " + file.getName());
 					addEntry(e);
 				}
 			}
@@ -28,7 +29,7 @@ public class FileSystemPhotoList implements IPhotoList {
 	}
 	
 	private boolean isImage(File _file) {
-		String ext = _file.getName().substring(_file.getName().lastIndexOf("."));
+		String ext = _file.getName().substring(_file.getName().lastIndexOf(".")).toLowerCase();
 		if (".jpg".equals(ext)  || ".jpeg".equals(ext)) {
 			return true;
 		} else {
@@ -46,7 +47,6 @@ public class FileSystemPhotoList implements IPhotoList {
 	
 	
 	public void addEntry(PhotoListEntry entry) {
-		// TODO Auto-generated method stub
 		entries.add(entry);
 	}
 
