@@ -78,7 +78,7 @@ public class ThumbNailServiceImpl implements ThumbNailService {
 		 * @see net.addictivesoftware.framed.services.IThumbNailService#create(java.lang.String)
 		 */
 		public String create(String _name)  {
-			
+			boolean hasError = false;
 			String thumbFileName = "images/nothumb.jpg";
 			if (!isThumb(_name)) {
 				thumbFileName = getThumbName(_name);
@@ -91,8 +91,9 @@ public class ThumbNailServiceImpl implements ThumbNailService {
 				    try {
 						mediaTracker.waitForID(0);
 					} catch (InterruptedException e) {
-						// TODO Auto-generated catch block
+
 						e.printStackTrace();
+						hasError = true;
 					}
 				    // determine thumbnail size from WIDTH and HEIGHT
 				    int imageWidth = image.getWidth(null);
@@ -137,18 +138,29 @@ public class ThumbNailServiceImpl implements ThumbNailService {
 						
 						out.close();
 					} catch (FileNotFoundException e) {
-						// TODO Auto-generated catch block
 						e.printStackTrace();
+						System.out.println(e.getMessage());
+						hasError = true;
 					} catch (ImageFormatException e) {
-						// TODO Auto-generated catch block
 						e.printStackTrace();
+						System.out.println(e.getMessage());
+						hasError = true;
 					} catch (IOException e) {
-						// TODO Auto-generated catch block
 						e.printStackTrace();
+						System.out.println(e.getMessage());
+						hasError = true;
 					}
 			    }
 			}
-			return thumbFileName;
+			if (hasError) {
+				File file = new File(thumbFileName);
+				if (file.exists()) {
+					file.delete();
+				}
+				return "images/nothumb.jpg";
+			} else {
+				return thumbFileName;
+			}
 		}
 		
 		public String create(String _name, int _w, int _h) {
