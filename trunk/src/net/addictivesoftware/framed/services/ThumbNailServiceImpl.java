@@ -95,10 +95,11 @@ public class ThumbNailServiceImpl implements ThumbNailService {
 						e.printStackTrace();
 						hasError = true;
 					}
+					
 				    // determine thumbnail size from WIDTH and HEIGHT
 				    int imageWidth = image.getWidth(null);
 				    int imageHeight = image.getHeight(null);
-				    
+				    System.out.println(imageWidth + "|" + imageHeight);
 				    double imageRatio = (double)imageWidth / (double)imageHeight;
 				    switch (scalingMethod) {
 				    	case SCALE_METHOD_AUTO:
@@ -127,7 +128,7 @@ public class ThumbNailServiceImpl implements ThumbNailService {
 				    BufferedOutputStream out;
 					try {
 						out = new BufferedOutputStream(new FileOutputStream(thumbFileName));
-					    JPEGImageEncoder encoder = JPEGCodec.createJPEGEncoder(out);
+						JPEGImageEncoder encoder = JPEGCodec.createJPEGEncoder(out);
 					    JPEGEncodeParam param = encoder.getDefaultJPEGEncodeParam(thumbImage);
 
 					    quality = Math.max(0, Math.min(quality, 100));
@@ -135,7 +136,7 @@ public class ThumbNailServiceImpl implements ThumbNailService {
 					    
 					    encoder.setJPEGEncodeParam(param);
 						encoder.encode(thumbImage);
-						
+						out.flush();
 						out.close();
 					} catch (FileNotFoundException e) {
 						e.printStackTrace();
@@ -178,8 +179,8 @@ public class ThumbNailServiceImpl implements ThumbNailService {
 		}
 
 		private boolean exists(String _name) {
-			File file = new File(getThumbName(_name)); 
-			return file.exists();
+			File file = new File(_name); 
+			return null != file && file.isFile() && file.exists();
 		}
 
 		private boolean isThumb(String _name) {
