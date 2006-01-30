@@ -19,8 +19,8 @@ package net.addictivesoftware.framed.pages;
 import net.addictivesoftware.framed.VirtualLibraryDelegate;
 import net.addictivesoftware.framed.Visit;
 import net.addictivesoftware.framed.security.User;
-import net.addictivesoftware.framed.services.Users;
 import net.addictivesoftware.framed.services.Security;
+import net.addictivesoftware.framed.services.Users;
 
 import org.apache.tapestry.IRequestCycle;
 import org.apache.tapestry.annotations.Bean;

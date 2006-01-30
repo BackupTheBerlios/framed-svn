@@ -1,7 +1,5 @@
 package net.addictivesoftware.framed.components;
 
-import javax.servlet.ServletContext;
-
 import net.addictivesoftware.framed.services.FotoPathService;
 import net.addictivesoftware.framed.services.ThumbNailService;
 

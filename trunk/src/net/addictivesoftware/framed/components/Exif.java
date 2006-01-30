@@ -17,6 +17,7 @@ import com.drew.metadata.MetadataException;
 import com.drew.metadata.Tag;
 import com.drew.metadata.exif.ExifDirectory;
 
+
 public abstract class Exif extends BaseComponent {
 
     public abstract String getImage();
