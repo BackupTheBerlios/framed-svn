@@ -4,13 +4,11 @@ import java.util.ArrayList;
 import java.util.StringTokenizer;
 
 import net.addictivesoftware.framed.Crumb;
-import net.addictivesoftware.framed.pages.Album;
 import net.addictivesoftware.framed.services.FotoPathService;
 
 import org.apache.tapestry.BaseComponent;
 import org.apache.tapestry.IRequestCycle;
 import org.apache.tapestry.annotations.InjectObject;
-import org.apache.tapestry.annotations.InjectPage;
 
 public abstract class CrumbTrail extends BaseComponent {
 
