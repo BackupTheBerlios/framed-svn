@@ -49,15 +49,23 @@ public abstract class Exif extends BaseComponent {
     		try {
     			metadata = JpegMetadataReader.readMetadata(file);
     	 		Directory exifDir = metadata.getDirectory(ExifDirectory.class);
-    
-    	 		System.out.println(getMode());
-    	 		if ("short".equals(getMode())) {
-    	 			writeDefinedTags(writer, exifDir);
-    	 		} else if ("list".equals(getMode())) {
-    	 			writeSomeTags(writer, exifDir);
+    	 		if (null != exifDir && exifDir.getTagCount() > 0) {
+        	 		if ("short".equals(getMode())) {
+        	 			writeDefinedTags(writer, exifDir);
+        	 		} else if ("list".equals(getMode())) {
+        	 			writeSomeTags(writer, exifDir);
+        	 		} else {
+        	 			writeAllTags(writer, exifDir);
+        	 		}
     	 		} else {
-    	 			writeAllTags(writer, exifDir);
+    				writer.begin("tr");
+    				writer.begin("td");
+    		        writer.attribute("colspan", "2");    				
+    				writer.print("no exif info found");
+    				writer.begin("td");
+    				writer.end("tr");
     	 		}
+
     		} catch (JpegProcessingException e1) {
     			// TODO Auto-generated catch block
     			e1.printStackTrace();
@@ -71,7 +79,19 @@ public abstract class Exif extends BaseComponent {
         writer.end("table");
     }
 
-    private void writeAllTags(IMarkupWriter writer, Directory exifDir) {
+    private void writeErrors(IMarkupWriter writer, Iterator errors) {
+		// TODO Auto-generated method stub
+		while (errors.hasNext()) {
+			writer.begin("tr");
+			writer.begin("td");
+	        writer.attribute("colspan", "2");    				
+			writer.print((String)errors.next());
+			writer.begin("td");
+			writer.end("tr");
+		}
+	}
+
+	private void writeAllTags(IMarkupWriter writer, Directory exifDir) {
 		Iterator tags = exifDir.getTagIterator();
 		int cnt = 0;
 		while  (tags.hasNext()) {
@@ -143,16 +163,11 @@ public abstract class Exif extends BaseComponent {
     	ArrayList<Integer> aList = new ArrayList<Integer>();
     	aList.add(ExifDirectory.TAG_MAKE);
     	aList.add(ExifDirectory.TAG_MODEL);
-    	aList.add(ExifDirectory.TAG_DATETIME_ORIGINAL);
     	aList.add(ExifDirectory.TAG_EXPOSURE_TIME);
     	aList.add(ExifDirectory.TAG_APERTURE);
-    	aList.add(ExifDirectory.TAG_X_RESOLUTION);
-    	aList.add(ExifDirectory.TAG_Y_RESOLUTION);
-    	aList.add(ExifDirectory.TAG_FLASH);
+//    	aList.add(ExifDirectory.TAG_SHUTTER_SPEED);
     	aList.add(ExifDirectory.TAG_ISO_EQUIVALENT);
-    	aList.add(ExifDirectory.TAG_METERING_MODE);
-    	aList.add(ExifDirectory.TAG_ORIENTATION);
-    	aList.add(ExifDirectory.TAG_DOCUMENT_NAME);
+    	aList.add(ExifDirectory.TAG_DATETIME_ORIGINAL);
     	Iterator it = aList.iterator();
     	int cnt=0;
     	while (it.hasNext()) {
