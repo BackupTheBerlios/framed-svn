@@ -99,7 +99,6 @@ public class ThumbNailServiceImpl implements ThumbNailService {
 				    // determine thumbnail size from WIDTH and HEIGHT
 				    int imageWidth = image.getWidth(null);
 				    int imageHeight = image.getHeight(null);
-				    System.out.println(imageWidth + "|" + imageHeight);
 				    double imageRatio = (double)imageWidth / (double)imageHeight;
 				    switch (scalingMethod) {
 				    	case SCALE_METHOD_AUTO:
