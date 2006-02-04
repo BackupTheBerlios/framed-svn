@@ -19,7 +19,6 @@ public class FileSystemPhotoList implements IPhotoList {
 				File file = files[i];
 				if (! file.isDirectory() && isImage(file) && !isThumb(file)) {
 					PhotoListEntry e = new PhotoListEntry(file);
-					System.out.println("adding " + file.getName());
 					addEntry(e);
 				}
 			}
