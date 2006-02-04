@@ -27,7 +27,7 @@ import org.apache.tapestry.valid.ValidationDelegate;
  * @author Howard Lewis Ship
  */
 
-public class VirtualLibraryDelegate extends ValidationDelegate
+public class Delegate extends ValidationDelegate
 {
     private static final long serialVersionUID = -1295233610266112824L;
 
