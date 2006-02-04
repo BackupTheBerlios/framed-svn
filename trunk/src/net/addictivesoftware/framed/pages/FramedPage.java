@@ -2,7 +2,7 @@ package net.addictivesoftware.framed.pages;
 
 import net.addictivesoftware.framed.IErrorProperty;
 import net.addictivesoftware.framed.IMessageProperty;
-import net.addictivesoftware.framed.VirtualLibraryDelegate;
+import net.addictivesoftware.framed.Delegate;
 import net.addictivesoftware.framed.Visit;
 import net.addictivesoftware.framed.services.ErrorPresenter;
 
@@ -29,7 +29,7 @@ import org.apache.tapestry.valid.IValidationDelegate;
 public abstract class FramedPage extends BasePage implements IErrorProperty, IMessageProperty,
         PageValidateListener
 {
-    @Bean(VirtualLibraryDelegate.class)
+    @Bean(Delegate.class)
     public abstract IValidationDelegate getValidationDelegate();
 
     @InjectState("visit")
