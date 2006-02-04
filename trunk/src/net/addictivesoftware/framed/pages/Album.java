@@ -30,9 +30,7 @@ public abstract class Album extends FramedPage {
 	public abstract FotoPathService getFotoPathService();
 	
 	public List getEntries() {
-		if (null == aList) {
 			aList = new FileSystemPhotoList(getServletContext().getRealPath(getFotoPathService().getCurrentPath() + "/"));
-		}
 				return aList.getEntries();
 	}
 
