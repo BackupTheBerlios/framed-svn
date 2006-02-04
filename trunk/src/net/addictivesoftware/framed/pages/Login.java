@@ -16,7 +16,7 @@ package net.addictivesoftware.framed.pages;
 
 
 
-import net.addictivesoftware.framed.VirtualLibraryDelegate;
+import net.addictivesoftware.framed.Delegate;
 import net.addictivesoftware.framed.Visit;
 import net.addictivesoftware.framed.security.User;
 import net.addictivesoftware.framed.services.Security;
@@ -56,7 +56,7 @@ public abstract class Login extends FramedPage implements PageBeginRenderListene
 
     private static final String COOKIE_NAME = "org.apache.tapestry.vlib.Login.email";
 
-    @Bean(VirtualLibraryDelegate.class)
+    @Bean(Delegate.class)
     public abstract IValidationDelegate getValidationDelegate();
 
     public abstract void setEmail(String value);
