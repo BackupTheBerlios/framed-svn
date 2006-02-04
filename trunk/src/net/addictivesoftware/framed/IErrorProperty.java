@@ -19,7 +19,7 @@ import org.apache.tapestry.IPage;
 /**
  *  Marks pages that have an error property (of type String).
  *
- *  @see VirtualLibraryDelegate
+ *  @see Delegate
  *
  *  @author Howard Lewis Ship
  * 
