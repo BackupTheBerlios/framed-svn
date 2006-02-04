@@ -39,7 +39,11 @@ public class CommentParser {
 	private Document doc = null;
 	public CommentParser(File _file) throws SAXException, IOException, ParserConfigurationException {
 		if (null == doc) {
-			doc = XmlHelper.createDomDocument( _file );
+			if (_file.exists()) {
+				doc = XmlHelper.createDomDocument( _file );
+			} else {
+				// create a comment file
+			}
 		}
 	}
 	
