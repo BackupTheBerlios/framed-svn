@@ -1,4 +1,4 @@
-TODO's
+TODO's (v = done/fixed, b = busy/working on it, w = workaround 
 version 0.1
 	v click on thumb, goto detailpage 
 	v Starting path of fotos configurable
@@ -6,17 +6,22 @@ version 0.1
 	v exclude thumbnails when showing list
 	v Exclude Headers in table completely
 	v Show something when directory with no images selected
-	v update SVN at berlios
 	v localization
 	v login
 
 version 0.2
+features :
+	- foto dir outside of webapp
 	- right management on foto's
 	- comments editable
-	- clicking on foto should open/download original size or link to do so
+	- possibility to open/download original size 
 	v adminpart
 		b throw away thumbnails
 		b create comments files
 		- user management
 		- file management
 		
+bugs :
+	w sometimes a out of memory occurs when creating a thumbnail, resulting in a black thumbnail
+	v when no exif info is found, none should show
+	v table component does not work correctly with caching turned on
