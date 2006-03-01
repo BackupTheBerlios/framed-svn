@@ -10,15 +10,18 @@ import java.io.File;
 import java.io.IOException;
 
 import javax.xml.namespace.NamespaceContext;
+import javax.xml.namespace.QName;
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
 import javax.xml.parsers.ParserConfigurationException;
 import javax.xml.xpath.XPath;
+import javax.xml.xpath.XPathConstants;
 import javax.xml.xpath.XPathExpression;
 import javax.xml.xpath.XPathExpressionException;
 import javax.xml.xpath.XPathFactory;
 
 import org.w3c.dom.Document;
+import org.w3c.dom.NodeList;
 import org.xml.sax.SAXException;
 
 
@@ -42,7 +45,16 @@ public class XmlHelper {
 	
 	private static XPath xpathprocessor  = null;
 
-	public static String evalXPath(Document _doc, String _xpath, NamespaceContext _nsContext) throws XPathExpressionException {
+	public static Object evalXPath(Document _doc, String _xpath, NamespaceContext _nsContext) throws XPathExpressionException {
+		return evalXPath(_doc, _xpath, _nsContext, XPathConstants.STRING);
+	}
+	
+
+	public static NodeList getNodeList(Document _doc, String _xpath) throws XPathExpressionException {
+		return (NodeList)evalXPath(_doc, _xpath, null, XPathConstants.NODESET);
+	}
+	
+	private static Object evalXPath(Document _doc, String _xpath, NamespaceContext _nsContext, QName _returnType) throws XPathExpressionException {
 		//get an XPath processor
 		if (null == xpathprocessor) {
 			XPathFactory xpfactory = XPathFactory.newInstance();
@@ -59,9 +71,7 @@ public class XmlHelper {
         //create XPath expressions
         XPathExpression compiledXPath = xpathprocessor.compile(_xpath);
 
-		return compiledXPath.evaluate(_doc);
-	}
+		return compiledXPath.evaluate(_doc, _returnType);	}
 	
-
 	
 }
