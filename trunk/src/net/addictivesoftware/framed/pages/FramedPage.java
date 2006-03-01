@@ -127,4 +127,8 @@ public abstract class FramedPage extends BasePage implements IErrorProperty, IMe
         }
     }
     
+    public boolean isUserAdmin() {
+    	return isUserLoggedIn() && getVisitState().getUser().isAdmin();
+    }
+    
 }
