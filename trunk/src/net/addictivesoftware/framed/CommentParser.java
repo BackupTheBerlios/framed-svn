@@ -13,6 +13,9 @@ import java.io.IOException;
 import java.nio.ByteBuffer;
 import java.nio.CharBuffer;
 import java.nio.channels.FileChannel;
+import java.util.LinkedList;
+import java.util.List;
+import java.util.StringTokenizer;
 
 import javax.xml.parsers.ParserConfigurationException;
 import javax.xml.xpath.XPathExpressionException;
@@ -23,6 +26,7 @@ import net.addictivesoftware.utils.xml.XmlHelper;
 import org.w3c.dom.Attr;
 import org.w3c.dom.Document;
 import org.w3c.dom.Node;
+import org.w3c.dom.NodeList;
 import org.w3c.dom.bootstrap.DOMImplementationRegistry;
 import org.w3c.dom.ls.DOMImplementationLS;
 import org.w3c.dom.ls.LSSerializer;
@@ -32,8 +36,6 @@ import org.xml.sax.SAXException;
 /**
  * @author gassies
  *
- * TODO To change the template for this generated type comment go to
- * Window - Preferences - Java - Code Style - Code Templates
  */
 public class CommentParser {
 	private Document doc = null;
@@ -51,7 +53,7 @@ public class CommentParser {
 		if (null != doc) {
 			String XPath = "/fotos/foto[@path='" + _photoName + "']";
 			
-			String comment = XmlHelper.evalXPath(doc, XPath, null);
+			String comment = (String)XmlHelper.evalXPath(doc, XPath, null);
 			if (null == comment) {
 				comment = "no comment found";
 			}
@@ -59,13 +61,55 @@ public class CommentParser {
 		} else {
 			return "";
 		}
-		
-
 	}
+	
+	public String getViewRights(String _photoName) throws XPathExpressionException {
+		if (null != doc) {
+			String XPath = "/fotos/foto[@path='" + _photoName + "']/@view";
+			
+			String viewRights = (String)XmlHelper.evalXPath(doc, XPath, null);
+			if (null == viewRights) {
+				viewRights = "no comment found";
+			}
+			return viewRights;
+		} else {
+			return "";
+		}
+	}
+	
+	public List<String> getFilesForViewRight(String _right) {
+		List<String> list = new LinkedList<String>();
+
+		String XPath = "/fotos/foto[true ";
+		if (_right.indexOf("|") > 0) {
+			StringTokenizer st = new StringTokenizer(_right, "|");
+			while (st.hasMoreTokens()) {
+				XPath += " or @view='" + st.nextToken() + "'";
+			}
+			XPath += "]";
+		} else {
+			XPath = "/fotos/foto[@view='" + _right + "']";
+		}
+		System.out.println(XPath);
+		NodeList nodelist;
+		try {
+			nodelist = XmlHelper.getNodeList(doc, XPath);
+			for (int i=0;i<nodelist.getLength();i++) {
+				Node node = nodelist.item(i);
+				String filename = node.getAttributes().getNamedItem("path").getNodeValue();
+				list.add(filename);
+			}
+		} catch (XPathExpressionException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return list;
+	}
+	
 	public String getDirComment() throws XPathExpressionException {
 		if (null != doc) {
 			String XPath = "/fotos/comment";
-			String comment = XmlHelper.evalXPath(doc, XPath, null);
+			String comment = (String)XmlHelper.evalXPath(doc, XPath, null);
 			if (null == comment) {
 				comment = "";
 			}
@@ -139,4 +183,6 @@ public class CommentParser {
 			}
 		}
 	}
+
+
 }

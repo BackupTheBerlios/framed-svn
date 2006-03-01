@@ -6,20 +6,27 @@
  */
 package net.addictivesoftware.framed.pages;
  
+import java.io.File;
+import java.io.IOException;
 import java.util.List;
 
 import javax.servlet.ServletContext;
+import javax.xml.parsers.ParserConfigurationException;
 
+import net.addictivesoftware.framed.CommentParser;
 import net.addictivesoftware.framed.FileSystemPhotoList;
 import net.addictivesoftware.framed.IPhotoList;
+import net.addictivesoftware.framed.SecureFileSystemPhotoList;
 import net.addictivesoftware.framed.services.FotoPathService;
 
 import org.apache.tapestry.IBinding;
 import org.apache.tapestry.IRequestCycle;
 import org.apache.tapestry.annotations.InjectObject;
 import org.apache.tapestry.annotations.Meta;
+import org.xml.sax.SAXException;
 
-@Meta({ "anonymous-access=false", "admin-page=false" })
+
+@Meta({ "anonymous-access=true", "admin-page=false" })
 public abstract class Album extends FramedPage {
 	private IPhotoList aList = null;
 	
@@ -30,7 +37,8 @@ public abstract class Album extends FramedPage {
 	public abstract FotoPathService getFotoPathService();
 	
 	public List getEntries() {
-			aList = new FileSystemPhotoList(getServletContext().getRealPath(getFotoPathService().getCurrentPath() + "/"));
+			String dir = getServletContext().getRealPath(getFotoPathService().getCurrentPath() + "/");
+			aList = new SecureFileSystemPhotoList(dir, getValidFiles(dir));
 				return aList.getEntries();
 	}
 
@@ -42,4 +50,28 @@ public abstract class Album extends FramedPage {
 		detailPage.getNestedComponent("foto").setBinding("image",imageBinding);
 		cycle.activate(detailPage);
     }    
+	
+	private List<String> getValidFiles(String _dir) {
+		File file = new File(_dir + "/comments.xml");
+		CommentParser parser;
+		try {
+			parser = new CommentParser(file);
+			if (isUserLoggedIn()) {
+				return parser.getFilesForViewRight("all|registered");
+			} else {
+				return parser.getFilesForViewRight("all");
+			}
+						
+		} catch (SAXException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (ParserConfigurationException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return null;
+	}
 }
