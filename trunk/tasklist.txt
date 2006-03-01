@@ -12,7 +12,7 @@ version 0.1
 version 0.2
 features :
 	- foto dir outside of webapp
-	- right management on foto's
+	v right management on foto's
 	- comments editable
 	- possibility to open/download original size 
 	v adminpart
