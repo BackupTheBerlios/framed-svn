@@ -8,12 +8,13 @@ import javax.xml.parsers.ParserConfigurationException;
 import javax.xml.xpath.XPathExpressionException;
 
 import net.addictivesoftware.framed.CommentParser;
+import net.addictivesoftware.framed.Visit;
 import net.addictivesoftware.framed.services.FotoPathService;
 
 import org.apache.tapestry.BaseComponent;
-import org.apache.tapestry.IMarkupWriter;
-import org.apache.tapestry.IRequestCycle;
 import org.apache.tapestry.annotations.InjectObject;
+import org.apache.tapestry.annotations.InjectState;
+import org.apache.tapestry.annotations.InjectStateFlag;
 import org.xml.sax.SAXException;
 
 public abstract class Comment extends BaseComponent {
@@ -25,25 +26,25 @@ public abstract class Comment extends BaseComponent {
 
 	@InjectObject("service:framed.FotoPathService")
 	public abstract FotoPathService getFotoPathService();
-	
-    protected void renderComponent(IMarkupWriter writer, IRequestCycle cycle)
-    {
-        if (cycle.isRewinding())
-            return;
-        // Doesn't contain a body so no need to do anything on rewind (assumes no
-        // sideffects to accessor methods via bindings).
+
+	@InjectState("visit")
+    public abstract Visit getVisitState();
+
+    @InjectStateFlag("visit")
+    public abstract boolean getVisitStateExists();
+
     
-        String path = getServletContext().getRealPath(getFotoPathService().getCurrentPath() + "/") + "/comments.xml";
+    public String getComment() {
+    	String result = "no comment (yet)";
+    	String path = getServletContext().getRealPath(getFotoPathService().getCurrentPath() + "/") + "/comments.xml";
     	String imageName = getImage().substring(getImage().lastIndexOf("/")+1);
 
     	File file = new File(path);
     	
-        writer.begin("p");
-        writer.attribute("class", "comment");
         CommentParser parser;
 		try {
 			parser = new CommentParser(file);
-			writer.print(parser.getComment(imageName));
+			result = parser.getComment(imageName);
 		} catch (XPathExpressionException e) {
 			e.printStackTrace();
 		} catch (SAXException e) {
@@ -53,7 +54,6 @@ public abstract class Comment extends BaseComponent {
 		} catch (ParserConfigurationException e) {
 			e.printStackTrace();
 		}
-        writer.end("p");
+    	return result;
     }
-	
 }
