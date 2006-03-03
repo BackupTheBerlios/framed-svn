@@ -1,8 +1,8 @@
 package net.addictivesoftware.framed.pages;
 
+import net.addictivesoftware.framed.Delegate;
 import net.addictivesoftware.framed.IErrorProperty;
 import net.addictivesoftware.framed.IMessageProperty;
-import net.addictivesoftware.framed.Delegate;
 import net.addictivesoftware.framed.Visit;
 import net.addictivesoftware.framed.services.ErrorPresenter;
 
