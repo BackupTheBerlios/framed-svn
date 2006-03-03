@@ -101,10 +101,8 @@ public abstract class Login extends FramedPage implements PageBeginRenderListene
 
     public void attemptLogin(IRequestCycle cycle)
     {
-    	System.out.println("attemptLogin");
         final String password = getPassword();
         final String email = getEmail();
-        System.out.println("for " + email + " / " + password );
         
         // Do a little extra work to clear out the password.
 
