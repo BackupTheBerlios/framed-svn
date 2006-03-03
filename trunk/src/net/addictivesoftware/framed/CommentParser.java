@@ -90,7 +90,6 @@ public class CommentParser {
 		} else {
 			XPath = "/fotos/foto[@view='" + _right + "']";
 		}
-		System.out.println(XPath);
 		NodeList nodelist;
 		try {
 			nodelist = XmlHelper.getNodeList(doc, XPath);
