@@ -12,5 +12,9 @@ public class SecurityImpl implements Security {
 			return false;			
 		}
 	}
+	
+	public String getRoles(User _user) {
+		return "";
+	}
 
 }

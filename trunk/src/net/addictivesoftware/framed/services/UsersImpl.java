@@ -2,6 +2,11 @@ package net.addictivesoftware.framed.services;
 
 import java.util.ArrayList;
 
+import javax.servlet.ServletContext;
+
+import org.apache.tapestry.annotations.InjectObject;
+
+import net.addictivesoftware.framed.security.Role;
 import net.addictivesoftware.framed.security.User;
 
 public class UsersImpl implements Users {
@@ -9,8 +14,8 @@ public class UsersImpl implements Users {
 
 	public UsersImpl() {
 		users = new ArrayList<User>();
-		users.add(new User(1,"Gertjan Assies", "gertjan@assies.info", "test", true));
-		users.add(new User(2,"Tester", "tester@assies.info", "test", false));
+		users.add(new User(1,"Gertjan Assies", "gertjan@assies.info", "test", true, new Role("all|registered")));
+		users.add(new User(2,"Tester", "tester@assies.info", "test", false, new Role("all")));
 	}
 	
 	/* (non-Javadoc)

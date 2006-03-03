@@ -4,4 +4,5 @@ import net.addictivesoftware.framed.security.User;
 
 public interface Security {
 	public boolean isValid(User user);
+	public String getRoles(User user);
 }

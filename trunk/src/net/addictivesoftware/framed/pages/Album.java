@@ -14,9 +14,9 @@ import javax.servlet.ServletContext;
 import javax.xml.parsers.ParserConfigurationException;
 
 import net.addictivesoftware.framed.CommentParser;
-import net.addictivesoftware.framed.FileSystemPhotoList;
 import net.addictivesoftware.framed.IPhotoList;
 import net.addictivesoftware.framed.SecureFileSystemPhotoList;
+import net.addictivesoftware.framed.security.User;
 import net.addictivesoftware.framed.services.FotoPathService;
 
 import org.apache.tapestry.IBinding;
@@ -57,7 +57,8 @@ public abstract class Album extends FramedPage {
 		try {
 			parser = new CommentParser(file);
 			if (isUserLoggedIn()) {
-				return parser.getFilesForViewRight("all|registered");
+				User user = getVisitState().getUser();
+				return parser.getFilesForViewRight(user.getRoles().getName());
 			} else {
 				return parser.getFilesForViewRight("all");
 			}
