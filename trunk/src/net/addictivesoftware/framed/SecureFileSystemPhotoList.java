@@ -1,14 +1,9 @@
+
 package net.addictivesoftware.framed;
 
 import java.io.File;
-import java.io.IOException;
 import java.util.ArrayList;
-import java.util.LinkedList;
 import java.util.List;
-
-import javax.xml.parsers.ParserConfigurationException;
-
-import org.xml.sax.SAXException;
 
 public class SecureFileSystemPhotoList implements IPhotoList {
 	private String path = "";
@@ -38,11 +33,8 @@ public class SecureFileSystemPhotoList implements IPhotoList {
 	}
 		
 	private boolean isValidFile(List<String> files, String name) {
-		System.out.println("isValidFile() for " + name);
 		if (null != files) {
-			System.out.println("not null");
 			for (String file : files) {
-				System.out.println(file + " <=-=> " + name);
 				if (name.equals(file)){
 					return true;
 				}
