@@ -12,14 +12,16 @@ public class User implements Serializable {
 	private String password;
 	private Boolean admin;
 	private Timestamp lastAccess;
+	private Role roles;
 	
-	public User(Integer id, String name, String email, String password, Boolean admin) {
+	public User(Integer id, String name, String email, String password, Boolean admin, Role roles) {
 		super();
 		this.id = id;
 		this.name = name;
 		this.email = email;
 		this.password = password;
 		this.admin = admin;
+		this.roles = roles; 
 	}
 	public Boolean isAdmin() {
 		return admin;
@@ -56,6 +58,12 @@ public class User implements Serializable {
 	}
 	public void setLastAccess(Timestamp lastAccess) {
 		this.lastAccess = lastAccess;
+	}
+	public Role getRoles() {
+		return roles;
+	}
+	public void setRoles(Role roles) {
+		this.roles = roles;
 	}
 	
 }
