@@ -52,7 +52,7 @@ public class CommentServiceImpl implements CommentService {
 				// create a comment file
 				System.out.println("creating comment file for " + _file.getParentFile().getName());
 				doc = createCommentFile(_file.getParentFile());
-//				save(doc, _file);
+				save(doc, _file);
 			}
 		}
 	}
@@ -177,42 +177,31 @@ public class CommentServiceImpl implements CommentService {
 		return str;
 	}
 	
-	public synchronized void save(Document _doc, File _commentsFile)  {
+	public void save(Document _doc, File _commentsFile)  {
 		String xml = "";
 		try {
 			xml = serialize(_doc);
-			System.out.println(xml);
-		} catch (ClassCastException e1) {
-			e1.printStackTrace();
-		} catch (ClassNotFoundException e1) {
-			e1.printStackTrace();
-		} catch (InstantiationException e1) {
-			e1.printStackTrace();
-		} catch (IllegalAccessException e1) {
-			e1.printStackTrace();
+		} catch (Exception e1) {
+			System.err.println(e1.getMessage());
 		}
 		if (!_commentsFile.exists()) {
 			ByteBuffer bb = ByteBuffer.allocate(1024);
 			CharBuffer cb = bb.asCharBuffer();
 			bb.limit(2*cb.position());
 			cb.put(xml);
+			System.out.println(cb.length());
 			FileOutputStream fo = null;
 			try {
-				_commentsFile.createNewFile();
 				fo = new FileOutputStream(_commentsFile);
 				FileChannel foc = fo.getChannel();
-				foc.lock();
 				foc.write(bb);
 				foc.force(true);
-				fo.flush();
 				fo.close();
 			} catch (FileNotFoundException e) {
-				e.printStackTrace();
+				System.err.println(e.getMessage());
 			} catch (IOException e) {
-				e.printStackTrace();			
+				System.err.println(e.getMessage());
 			}
-
 		}
 	}
-
 }

@@ -13,9 +13,12 @@ public class CommentServiceFactory {
 	private static HashMap<String, CommentService> csMap = new HashMap<String, CommentService>();
 	
 	public static CommentService getInstance(File _file) {
+		System.out.println("getInstance : " + _file.getAbsolutePath());
 		if (contains(_file.getAbsolutePath())) {
+			System.out.println("getInstance : returning instance");
 			return get(_file.getAbsolutePath());
 		} else {
+			System.out.println("getInstance : creating instance");
 			CommentService cs = null;
 			try {
 				cs = new CommentServiceImpl(_file);
@@ -36,8 +39,9 @@ public class CommentServiceFactory {
 	
 	
 	private static boolean contains(String _name) {
-		for (Object keys : csMap.keySet()) {
-			if (((String)keys).equals(_name)) {
+		for (String key : csMap.keySet()) {
+			System.out.println("contains :" + key + " <> " + _name);
+			if (key.equals(_name)) {
 				return true;
 			}
 		}
@@ -45,6 +49,7 @@ public class CommentServiceFactory {
 	}
 	private static CommentService get(String _name) {
 		for (String key : csMap.keySet()) {
+			System.out.println("get :" + key + " <> " + _name);
 			if (key.equals(_name)) {
 				return csMap.get(key);
 			}
