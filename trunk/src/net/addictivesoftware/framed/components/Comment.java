@@ -7,7 +7,9 @@ import javax.servlet.ServletContext;
 import javax.xml.parsers.ParserConfigurationException;
 import javax.xml.xpath.XPathExpressionException;
 
-import net.addictivesoftware.framed.CommentParser;
+import net.addictivesoftware.framed.CommentService;
+import net.addictivesoftware.framed.CommentServiceFactory;
+import net.addictivesoftware.framed.CommentServiceImpl;
 import net.addictivesoftware.framed.Visit;
 import net.addictivesoftware.framed.services.FotoPathService;
 
@@ -41,17 +43,11 @@ public abstract class Comment extends BaseComponent {
 
     	File file = new File(path);
     	
-        CommentParser parser;
+        CommentService parser;
 		try {
-			parser = new CommentParser(file);
+			parser = CommentServiceFactory.getInstance(file);
 			result = parser.getComment(imageName);
 		} catch (XPathExpressionException e) {
-			e.printStackTrace();
-		} catch (SAXException e) {
-			e.printStackTrace();
-		} catch (IOException e) {
-			e.printStackTrace();
-		} catch (ParserConfigurationException e) {
 			e.printStackTrace();
 		}
     	return result;
