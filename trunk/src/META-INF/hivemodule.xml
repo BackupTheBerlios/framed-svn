@@ -11,6 +11,7 @@
 			</construct>
 		</invoke-factory>
      </service-point>
+     
      <service-point id="ThumbNailService">
 		
 		Service which checks the existence of a thumbnail with the given size 
@@ -24,6 +25,7 @@
 			</construct>
 		</invoke-factory>
      </service-point>
+
     <service-point id="ErrorPresenter">
         
         Activates the Home page to report an error.
