@@ -7,7 +7,7 @@
 	<property name="showTags" initial-value="literal:make, model, x_resolution, y_resolution" />
   
   	<property name="fotoPath" initial-value="literal:fotos/" persist="session" />
-	
+		
 	<bean name="evenOdd" class="org.apache.tapestry.bean.EvenOdd"/>
 
 	<component id="table" type="c:Table">
