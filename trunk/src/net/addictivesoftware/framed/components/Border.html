@@ -1,53 +1,36 @@
 <html>
-<head>
-	<title><span jwcid="@Insert" value="ognl:title"/></title>
-	<link rel="stylesheet" type="text/css" href="css/default.css" />
-</head>
-<body jwcid="@Body">
-<table cellpadding="0" cellspacing="0" style="padding:0px;spacing:0px;border:1px solid #000090;width:1000px;">
-<tr>
-<td colspan="3" style="width:1000px;height:101px;background-image:url(images/header.png);background-color:#000090;">
-<td>
-</td>
-</tr>
-<tr>
-<td style="font-size:15px;color:white;width:200px;background-image:url(images/leftbg.png);background-color:#000090;background-repeat:no-repeat;">
-<a class="menu" jwcid="@PageLink" page="Home"><span jwcid="@Insert" value="message:home"/></a><br>
-<a class="menu" jwcid="@PageLink" page="About"><span jwcid="@Insert" value="message:about"/></a><br>
-<a class="menu" jwcid="@PageLink" page="Album"><span jwcid="@Insert" value="message:album"/></a><br>
-<a class="menu" jwcid="@PageLink" page="Login"><span jwcid="@Insert" value="message:login"/></a><br>
+	<head>
+		<title><span jwcid="@Insert" value="ognl:title"/></title>
+		<link rel="stylesheet" type="text/css" href="css/default.css" /></head>
+	<body jwcid="@Body">
+	<table cellpadding="0" cellspacing="0" style="padding:0px;spacing:0px;">
+		<tr>
+			<td colspan="3" width="1000" style="height:101px;background-image:url(images/header.png);background-color:#000090;">&#160;</td></tr>
+		<tr>
+			<td width="200" style="font-size:15px;background-image:url(images/leftbg_white.png);background-repeat:no-repeat;">
+				<a class="menu" jwcid="@PageLink" page="Home"><span jwcid="@Insert" value="message:home"/></a><br>
+				<a class="menu" jwcid="@PageLink" page="About"><span jwcid="@Insert" value="message:about"/></a><br>
+				<a class="menu" jwcid="@PageLink" page="Album"><span jwcid="@Insert" value="message:album"/></a><br>
+				<a class="menu" jwcid="@PageLink" page="Login"><span jwcid="@Insert" value="message:login"/></a><br>
+				<br/><br/>
+				<span jwcid="@If" condition="ognl:page.pageName.equals('Album')">
+					<span jwcid="@DirMenu" /><br/><br/></span></td>
+			<td colspan="2" width="800" style="background-image:url(images/contentbg.png);background-repeat:no-repeat;background-color:white;">
+				<div style="padding:10px 10px 10px 10px;">
+					<span jwcid="@ShowError"/>
+					<span jwcid="@ShowMessage"/>
+					<span jwcid="@RenderBody">This is the page content.</span></div></td></tr>
+		<tr>
+		<td width="200" style="border-top:1px solid #999999;text-align:center;color:#999999;">
+			Framed&#160;<span jwcid="@Insert" value="message:version"/>&#160;0.1.110<br/>
+			<img src="images/PoweredByTapestry.gif" style="align:center;vertical-align:absolute-bottom;"/><br/><br/></td>
+		<td width="500" style="border-top:1px solid #999999;text-align:center;color:#999999;">
+			<span jwcid="@Insert" value="message:footer-left" />&#160;
+			<a class="footer" href="http://www.addictivesoftware.net">Addictive Software</a> 2005</td>
+		<td width="300" style="border-top:1px solid #999999;text-align:right;color:#999999;">
 
-<br/><br/>
-	<span jwcid="@If" condition="ognl:page.pageName.equals('Album')">
-		<span jwcid="@DirMenu" /><br/><br/>
-	</span>
-</td>
-<td colspan="2" style="width:798px;background-image:url(images/contentbg.png);background-repeat:no-repeat;background-color:white;">
-	<div style="padding:10px 10px 10px 10px;">
-		<span jwcid="@ShowError"/>
-		<span jwcid="@ShowMessage"/>
-		<span jwcid="@RenderBody">This is the page content.</span>
-	</div>
-</td>
-</tr>
-<tr>
-	<td style="color:white;background-color:#000090;text-align:center;">
-		Framed&#160;<span jwcid="@Insert" value="message:version"/>&#160;0.1.99<br/>
-		<img src="images/PoweredByTapestry.gif" style="align:center;vertical-align:absolute-bottom;"/>
-		</td>
-	<td style="color:white;background-color:#000090;text-align:center;">
-		<span jwcid="@Insert" value="message:footer-left" />&#160;
-		<a class="footer" href="http://www.addictivesoftware.net">Addictive Software</a> 2005
-	</td>
-	<td align="right">
-		<span jwcid="@DirectLink" listener="listener:changeLocale" parameters="nl" class="locale">nl</span>
-		<span jwcid="@DirectLink" listener="listener:changeLocale" parameters="en" class="locale">en</span>
-		<span jwcid="@DirectLink" listener="listener:changeLocale" parameters="es" class="locale">sp</span>
-		|<span jwcid="@DirectLink" listener="listener:logout" class="footer">
-			<span jwcid="@Insert" value="message:logout" />
-		 </span>
-	</td>
-</tr>
-</table>
-</body>
-</html>
+			<span jwcid="@DirectLink" listener="listener:changeLocale" parameters="nl" class="locale">nl</span>
+			<span jwcid="@DirectLink" listener="listener:changeLocale" parameters="en" class="locale">en</span>
+			<span jwcid="@DirectLink" listener="listener:changeLocale" parameters="es" class="locale">sp</span>
+			|<span jwcid="@DirectLink" listener="listener:logout" class="footer">
+				<span jwcid="@Insert" value="message:logout" /></span></td></tr></table></body></html>
