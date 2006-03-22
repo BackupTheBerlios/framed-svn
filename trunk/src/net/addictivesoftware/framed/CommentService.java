@@ -15,5 +15,7 @@ public interface CommentService {
 	public abstract List<String> getFilesForViewRight(String _right);
 
 	public abstract String getDirComment() throws XPathExpressionException;
-
+	
+	public abstract void setDirComment(String _comment);
+	public abstract void setComment(String _name, String _comment);
 }

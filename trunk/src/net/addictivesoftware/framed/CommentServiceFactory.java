@@ -14,7 +14,7 @@ public class CommentServiceFactory {
 	
 	public static CommentService getInstance(File _file) {
 		System.out.println("getInstance : " + _file.getAbsolutePath());
-		if (contains(_file.getAbsolutePath())) {
+		if (false && contains(_file.getAbsolutePath())) {
 			System.out.println("getInstance : returning instance");
 			return get(_file.getAbsolutePath());
 		} else {

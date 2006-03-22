@@ -13,7 +13,8 @@ import java.util.List;
 import javax.servlet.ServletContext;
 import javax.xml.parsers.ParserConfigurationException;
 
-import net.addictivesoftware.framed.CommentParser;
+import net.addictivesoftware.framed.CommentService;
+import net.addictivesoftware.framed.CommentServiceImpl;
 import net.addictivesoftware.framed.IPhotoList;
 import net.addictivesoftware.framed.SecureFileSystemPhotoList;
 import net.addictivesoftware.framed.security.User;
@@ -49,13 +50,13 @@ public abstract class Album extends FramedPage {
 		imageBinding.setObject(params[0]);
 		detailPage.getNestedComponent("foto").setBinding("image",imageBinding);
 		cycle.activate(detailPage);
-    }    
-	
-	private List<String> getValidFiles(String _dir) {
+    }
+		
+    private List<String> getValidFiles(String _dir) {
 		File file = new File(_dir + "/comments.xml");
-		CommentParser parser;
+		CommentService parser;
 		try {
-			parser = new CommentParser(file);
+			parser = new CommentServiceImpl(file);
 			if (isUserLoggedIn()) {
 				User user = getVisitState().getUser();
 				return parser.getFilesForViewRight(user.getRoles().getName());

@@ -10,6 +10,8 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
+import java.io.OutputStreamWriter;
+import java.io.StringWriter;
 import java.nio.ByteBuffer;
 import java.nio.CharBuffer;
 import java.nio.channels.FileChannel;
@@ -29,6 +31,7 @@ import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
 import org.w3c.dom.bootstrap.DOMImplementationRegistry;
 import org.w3c.dom.ls.DOMImplementationLS;
+import org.w3c.dom.ls.LSOutput;
 import org.w3c.dom.ls.LSSerializer;
 import org.xml.sax.SAXException;
 
@@ -38,33 +41,32 @@ import org.xml.sax.SAXException;
  *
  */
 public class CommentServiceImpl implements CommentService {
-	private Document doc = null;
-	
+	private Document m_doc = null;
+	private File m_file = null;
 	
 	public CommentServiceImpl(File _file) throws SAXException, IOException, ParserConfigurationException {
-	if (null == doc) {
-		System.out.println(_file.getAbsolutePath());
-		System.out.println(_file.exists());
+	if (null == m_doc) {
 		if (_file.exists()) {
-				doc = XmlHelper.createDomDocument( _file );
+				m_doc = XmlHelper.createDomDocument( _file );
 				// TODO check for added files
 			} else {
 				// create a comment file
 				System.out.println("creating comment file for " + _file.getParentFile().getName());
-				doc = createCommentFile(_file.getParentFile());
-				save(doc, _file);
-			}
+				m_doc = createCommentFile(_file.getParentFile());
+				XmlHelper.save(m_doc, _file);
 		}
+		m_file = _file;
 	}
+}
 	
 	/* (non-Javadoc)
 	 * @see net.addictivesoftware.framed.CommentService#getComment(java.lang.String)
 	 */
 	public String getComment(String _photoName) throws XPathExpressionException {
-		if (null != doc) {
+		if (null != m_doc) {
 			String XPath = "/fotos/foto[@path='" + _photoName + "']";
 			
-			String comment = (String)XmlHelper.evalXPath(doc, XPath, null);
+			String comment = (String)XmlHelper.evalXPath(m_doc, XPath, null);
 			if (null == comment) {
 				comment = "no comment found";
 			}
@@ -78,10 +80,10 @@ public class CommentServiceImpl implements CommentService {
 	 * @see net.addictivesoftware.framed.CommentService#getViewRights(java.lang.String)
 	 */
 	public String getViewRights(String _photoName) throws XPathExpressionException {
-		if (null != doc) {
+		if (null != m_doc) {
 			String XPath = "/fotos/foto[@path='" + _photoName + "']/@view";
 			
-			String viewRights = (String)XmlHelper.evalXPath(doc, XPath, null);
+			String viewRights = (String)XmlHelper.evalXPath(m_doc, XPath, null);
 			if (null == viewRights) {
 				viewRights = "no comment found";
 			}
@@ -109,7 +111,7 @@ public class CommentServiceImpl implements CommentService {
 		}
 		NodeList nodelist;
 		try {
-			nodelist = XmlHelper.getNodeList(doc, XPath);
+			nodelist = XmlHelper.getNodeList(m_doc, XPath);
 			for (int i=0;i<nodelist.getLength();i++) {
 				Node node = nodelist.item(i);
 				String filename = node.getAttributes().getNamedItem("path").getNodeValue();
@@ -125,9 +127,9 @@ public class CommentServiceImpl implements CommentService {
 	 * @see net.addictivesoftware.framed.CommentService#getDirComment()
 	 */
 	public String getDirComment() throws XPathExpressionException {
-		if (null != doc) {
+		if (null != m_doc) {
 			String XPath = "/fotos/comment";
-			String comment = (String)XmlHelper.evalXPath(doc, XPath, null);
+			String comment = (String)XmlHelper.evalXPath(m_doc, XPath, null);
 			if (null == comment) {
 				comment = "";
 			}
@@ -138,70 +140,56 @@ public class CommentServiceImpl implements CommentService {
 	}
 	
 	public Document createCommentFile(File _dir) throws ParserConfigurationException {
-		doc = XmlHelper.createDomDocument();	
+		m_doc = XmlHelper.createDomDocument();	
 		File[] files = _dir.listFiles();
-		Node rootNode = doc.createElement("fotos");
-		Node commentNode = doc.createElement("comment");
+		Node rootNode = m_doc.createElement("fotos");
+		Node commentNode = m_doc.createElement("comment");
 		commentNode.setTextContent("***generated comment file***");
 		rootNode.appendChild(commentNode);
 		for (int i=0;i<files.length;i++) {
 			if (ImageHelper.isImage(files[i]) && !ImageHelper.isThumb(files[i])) {
-				Node fotoNode = doc.createElement("foto");
+				Node fotoNode = m_doc.createElement("foto");
 
-				Attr attr = doc.createAttribute("file");
+				Attr attr = m_doc.createAttribute("path");
 				attr.setValue(files[i].getName());
 				fotoNode.getAttributes().setNamedItem(attr);
 				
-				attr = doc.createAttribute("view");
+				attr = m_doc.createAttribute("view");
 				attr.setValue("all");
 				fotoNode.getAttributes().setNamedItem(attr);
 				
 				rootNode.appendChild(fotoNode);
 			}
 		}
-		doc.appendChild(rootNode);
-		return doc;
+		m_doc.appendChild(rootNode);
+		return m_doc;
 	}
 
-	public void setComment(String fotoName) {
-		
-	}
-	
-	public String serialize(Document _doc) throws ClassCastException, ClassNotFoundException, InstantiationException, IllegalAccessException {
-		System.out.println(_doc.getDocumentElement().getNodeName());
-		System.setProperty(DOMImplementationRegistry.PROPERTY,"org.apache.xerces.dom.DOMImplementationSourceImpl");
-		DOMImplementationRegistry registry = DOMImplementationRegistry.newInstance();
-		DOMImplementationLS impl = (DOMImplementationLS)registry.getDOMImplementation("LS");
-		LSSerializer writer = impl.createLSSerializer();
-		String str = writer.writeToString(_doc);
-		return str;
-	}
-	
-	public void save(Document _doc, File _commentsFile)  {
-		String xml = "";
+	public void setComment(String _fotoName, String _comment) {
 		try {
-			xml = serialize(_doc);
-		} catch (Exception e1) {
-			System.err.println(e1.getMessage());
-		}
-		if (!_commentsFile.exists()) {
-			ByteBuffer bb = ByteBuffer.allocate(1024);
-			CharBuffer cb = bb.asCharBuffer();
-			bb.limit(2*cb.position());
-			cb.put(xml);
-			System.out.println(cb.length());
-			FileOutputStream fo = null;
-			try {
-				fo = new FileOutputStream(_commentsFile);
-				FileChannel foc = fo.getChannel();
-				foc.write(bb);
-				foc.force(true);
-				fo.close();
-			} catch (FileNotFoundException e) {
-				System.err.println(e.getMessage());
-			} catch (IOException e) {
-				System.err.println(e.getMessage());
+			Node node = XmlHelper.getNode(m_doc, "/fotos/foto[@path=" + _fotoName + "]");
+			if (null != node) {
+				Attr attr = m_doc.createAttribute("path");
+				attr.setValue(_comment);
+				node.getAttributes().setNamedItem(attr);
 			}
+		} catch (XPathExpressionException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
 		}
+		XmlHelper.save(m_doc, m_file);
+	}
+
+	public void setDirComment(String _comment) {
+		try {
+			Node node = XmlHelper.getNode(m_doc, "/fotos/comment");
+			if (null != node) {
+				node.setTextContent(_comment);
+			}
+		} catch (XPathExpressionException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		XmlHelper.save(m_doc, m_file);
 	}
 }

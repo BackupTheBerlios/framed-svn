@@ -2,9 +2,10 @@ package net.addictivesoftware.framed.pages;
 
 import java.io.File;
 
-import net.addictivesoftware.framed.CommentParser;
+import net.addictivesoftware.framed.CommentServiceImpl;
 import net.addictivesoftware.framed.services.FotoPathService;
 import net.addictivesoftware.utils.ImageHelper;
+import net.addictivesoftware.utils.xml.XmlHelper;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
@@ -68,13 +69,13 @@ public abstract class Admin extends FramedPage {
 		}
 	}	
 	private void createCommentsForDir(File _dir)  {
-		CommentParser cp;
+		CommentServiceImpl cp;
 		try {
-			cp = new CommentParser(_dir);
+			cp = new CommentServiceImpl(_dir);
 			File commentFile = new File(_dir, "comments.xml");
 			if (!commentFile.exists()) {
 					Document doc = cp.createCommentFile(_dir);
-					cp.save(doc,_dir);
+					XmlHelper.save(doc,_dir);
 			} else {
 				// TODO Update existing file with new photo's
 			}		
