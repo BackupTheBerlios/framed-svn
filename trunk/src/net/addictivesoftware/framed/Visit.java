@@ -36,7 +36,7 @@ public class Visit implements Serializable
 
     private User _user;
 
-    /**
+	/**
      * Returns the time the user last accessed the database, which may be null if the user hasn't
      * logged in yet.
      */
