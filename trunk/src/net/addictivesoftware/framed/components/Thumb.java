@@ -36,14 +36,13 @@ public abstract class Thumb extends BaseComponent {
         }
 
         // gets the url for the thumbnail, creates the thumbnail if need be
-        String sImageURL = getThumbNailService().create(sURL, getWidth(), getHeight());
+        String sThumbImageURL = getThumbNailService().create(sURL, getWidth(), getHeight());
         
-        // turn into relative path
-        sImageURL = sImageURL.substring(sImageURL.indexOf(getFotoPathService().getPath())+1);
+        String sRelativeThumbImageURL = sThumbImageURL.substring(sThumbImageURL.indexOf(getFotoPathService().getPath())+1);
               
         writer.beginEmpty("img");
 
-        writer.attribute("src", sImageURL);
+        writer.attribute("src", sRelativeThumbImageURL);
         writer.attribute("border", "0");
         
         renderInformalParameters(writer, cycle);
