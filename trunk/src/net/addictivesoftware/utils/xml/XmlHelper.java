@@ -14,6 +14,14 @@ import javax.xml.namespace.QName;
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
 import javax.xml.parsers.ParserConfigurationException;
+import javax.xml.transform.Result;
+import javax.xml.transform.Source;
+import javax.xml.transform.Transformer;
+import javax.xml.transform.TransformerConfigurationException;
+import javax.xml.transform.TransformerException;
+import javax.xml.transform.TransformerFactory;
+import javax.xml.transform.dom.DOMSource;
+import javax.xml.transform.stream.StreamResult;
 import javax.xml.xpath.XPath;
 import javax.xml.xpath.XPathConstants;
 import javax.xml.xpath.XPathExpression;
@@ -21,6 +29,7 @@ import javax.xml.xpath.XPathExpressionException;
 import javax.xml.xpath.XPathFactory;
 
 import org.w3c.dom.Document;
+import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
 import org.xml.sax.SAXException;
 
@@ -49,7 +58,10 @@ public class XmlHelper {
 		return evalXPath(_doc, _xpath, _nsContext, XPathConstants.STRING);
 	}
 	
-
+	public static Node getNode(Document _doc, String _xpath) throws XPathExpressionException {
+		return (Node)evalXPath(_doc, _xpath, null, XPathConstants.NODE);
+	}
+	
 	public static NodeList getNodeList(Document _doc, String _xpath) throws XPathExpressionException {
 		return (NodeList)evalXPath(_doc, _xpath, null, XPathConstants.NODESET);
 	}
@@ -73,5 +85,24 @@ public class XmlHelper {
 
 		return compiledXPath.evaluate(_doc, _returnType);	}
 	
-	
+	public static boolean save(Document _doc, String _fileName) {
+		File file = new File(_fileName);
+		return save(_doc, file);
+	}
+
+	public static boolean save(Document _doc, File _file) {
+		try {
+	        TransformerFactory tranFactory = TransformerFactory.newInstance();
+	        Transformer aTransformer = tranFactory.newTransformer();
+	        Source src = new DOMSource(_doc);
+	        Result dest = new StreamResult(_file);
+	        aTransformer.transform(src, dest);
+	        return true;
+		} catch (TransformerConfigurationException e) {
+			System.err.println(e.getMessage());
+		} catch (TransformerException e) {
+			System.err.println(e.getMessage());
+		}
+		return false;
+	}
 }
