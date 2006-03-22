@@ -28,13 +28,6 @@ public abstract class Comment extends BaseComponent {
 
 	@InjectObject("service:framed.FotoPathService")
 	public abstract FotoPathService getFotoPathService();
-
-	@InjectState("visit")
-    public abstract Visit getVisitState();
-
-    @InjectStateFlag("visit")
-    public abstract boolean getVisitStateExists();
-
     
     public String getComment() {
     	String result = "no comment (yet)";

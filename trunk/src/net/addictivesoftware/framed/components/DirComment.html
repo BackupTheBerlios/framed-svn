@@ -4,7 +4,23 @@
 	</head>
 	<body jwcid="$content$">
 		<p class="comment">
-			<span jwcid="@InsertText" value="ognl:comment" />
+			<span jwcid="@If" condition="ognl:editmode">
+				<span jwcid="@Form" listener="listener:saveDirComment">
+					<span jwcid="dirComment@TextArea" class="comment" value="ognl:comment" /><br/>		
+					<input type="image" src="images/but_save.png" />
+				</span>
+			</span>
+			<span jwcid="@Else">
+				<span jwcid="@InsertText" value="ognl:comment" /><br/>
+			</span>
+			<!--span jwcid="@DirectLink" listener="listener:toggleEditMode">
+				<span jwcid="@If" condition="ognl:editmode" class="button">
+					<img src="images/but_stop.png" border="0" />
+				</span>
+				<span jwcid="@Else" class="button">
+					<img src="images/but_edit.png" border="0" />
+				</span>
+			</span-->
 		</p>
 	</body>
 </html>
