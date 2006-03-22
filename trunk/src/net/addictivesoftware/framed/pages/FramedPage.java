@@ -15,6 +15,7 @@ import org.apache.tapestry.annotations.InjectPage;
 import org.apache.tapestry.annotations.InjectState;
 import org.apache.tapestry.annotations.InjectStateFlag;
 import org.apache.tapestry.annotations.Meta;
+import org.apache.tapestry.annotations.Persist;
 import org.apache.tapestry.callback.PageCallback;
 import org.apache.tapestry.event.PageEvent;
 import org.apache.tapestry.event.PageValidateListener;
@@ -130,5 +131,11 @@ public abstract class FramedPage extends BasePage implements IErrorProperty, IMe
     public boolean isUserAdmin() {
     	return isUserLoggedIn() && getVisitState().getUser().isAdmin();
     }
+
+    @Persist("Session")
+    public abstract Boolean getEditmode();
+ //   public abstract void setEditmode(boolean editmode);
+    
+   
     
 }
