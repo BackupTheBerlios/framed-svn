@@ -2,6 +2,8 @@ package net.addictivesoftware.framed.components;
 
 import java.util.Locale;
 
+import net.addictivesoftware.framed.Visit;
+import net.addictivesoftware.framed.pages.FramedPage;
 import net.addictivesoftware.framed.pages.Home;
 import net.addictivesoftware.framed.services.ApplicationLifecycle;
 
@@ -11,6 +13,8 @@ import org.apache.tapestry.IRequestCycle;
 import org.apache.tapestry.PageRedirectException;
 import org.apache.tapestry.annotations.InjectObject;
 import org.apache.tapestry.annotations.InjectPage;
+import org.apache.tapestry.annotations.InjectState;
+import org.apache.tapestry.annotations.InjectStateFlag;
 import org.apache.tapestry.annotations.Message;
 
 public abstract class Border extends BaseComponent {
@@ -20,7 +24,13 @@ public abstract class Border extends BaseComponent {
     
     @InjectPage("Home")
     public abstract Home getHome();
-    
+
+    @InjectState("visit")
+    public abstract Visit getVisitState();
+
+    @InjectStateFlag("visit")
+    public abstract boolean getVisitStateExists();
+
     @Message
     public abstract String goodbye();
 	
@@ -44,4 +54,16 @@ public abstract class Border extends BaseComponent {
     	cycle.cleanup();
     	throw new PageRedirectException(this.getPage());    
     }
+    
+    public void toggleEditMode(IRequestCycle cycle) {
+    	FramedPage page = (FramedPage)this.getPage();
+    	//page.setEditmode(! page.getEditmode());
+    	throw new PageRedirectException(this.getPage());    
+    }
+    
+    
+    
+    
+    
+    
 }
