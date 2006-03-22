@@ -11,15 +11,23 @@ version 0.1
 
 version 0.2
 features :
-	- foto dir outside of webapp
 	v right management on foto's
-	- comments editable
+	v autocreating of comment files
+
+version 0.3
+	- add new foto's in dit to comment files
+	b comments editable
+	- rights editable
+	- deleting of thumbs
+	- foto dir outside of webapp
 	- possibility to open/download original size 
+
+version 0.4
 	v adminpart
 		b throw away thumbnails
 		b create comments files
 		- user management
-		- file management
+		- improved file(foto) management
 		
 bugs :
 	w sometimes a out of memory occurs when creating a thumbnail, resulting in a black thumbnail
