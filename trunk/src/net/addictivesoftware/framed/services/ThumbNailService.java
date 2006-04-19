@@ -15,4 +15,5 @@ public interface ThumbNailService {
 	public int getThumbWidth() ;
 	public void setThumbWidth(int thumbWidth) ;
 
+	public String getThumbName(String imageName) ;
 }

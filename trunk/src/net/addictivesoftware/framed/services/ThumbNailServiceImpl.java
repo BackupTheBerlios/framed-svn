@@ -85,17 +85,23 @@ public class ThumbNailServiceImpl implements ThumbNailService {
 					
 				// load image from INFILE
 			    if (!exists(thumbFileName)) {
-				    Image image = Toolkit.getDefaultToolkit().getImage(_name);
-				    MediaTracker mediaTracker = new MediaTracker(new Container());
-				    mediaTracker.addImage(image, 0);
+				    Image image = null;
+				    
 				    try {
+				    	image = Toolkit.getDefaultToolkit().getImage(_name);
+				    	MediaTracker mediaTracker = new MediaTracker(new Container());
+				    	mediaTracker.addImage(image, 0);
 						mediaTracker.waitForID(0);
 					} catch (InterruptedException e) {
 
 						e.printStackTrace();
 						hasError = true;
+					} catch (OutOfMemoryError oom) {
+						// soOutOfMemoryErrormetimes heap space runs out when creating thumbs
+						// this makes sure the thums is deleted
+						hasError = true;
+						System.err.println("OUT OF MEMORY while creating thumb !!");
 					}
-					
 				    // determine thumbnail size from WIDTH and HEIGHT
 				    int imageWidth = image.getWidth(null);
 				    int imageHeight = image.getHeight(null);
@@ -139,24 +145,28 @@ public class ThumbNailServiceImpl implements ThumbNailService {
 						out.close();
 					} catch (FileNotFoundException e) {
 						e.printStackTrace();
-						System.out.println(e.getMessage());
+						System.out.println("ThumbNailServiceImpl: " + e.getMessage());
 						hasError = true;
 					} catch (ImageFormatException e) {
 						e.printStackTrace();
-						System.out.println(e.getMessage());
+						System.out.println("ThumbNailServiceImpl: " + e.getMessage());
 						hasError = true;
 					} catch (IOException e) {
 						e.printStackTrace();
-						System.out.println(e.getMessage());
+						System.out.println("ThumbNailServiceImpl: " + e.getMessage());
 						hasError = true;
+					} finally {
+						if (hasError) {
+							System.out.println("error occured -> deleting thumb");
+							File file = new File(thumbFileName);
+							if (file != null) {
+								file.delete();
+							}
+						}
 					}
 			    }
 			}
 			if (hasError) {
-				File file = new File(thumbFileName);
-				if (file.exists()) {
-					file.delete();
-				}
 				return "images/nothumb.jpg";
 			} else {
 				return thumbFileName;
@@ -203,7 +213,7 @@ public class ThumbNailServiceImpl implements ThumbNailService {
 		 * @param _name
 		 * @return
 		 */
-		private String getThumbName(String _name) {
+		public String getThumbName(String _name) {
 			String path = _name.substring(0,_name.lastIndexOf("/")+1);
 			String filename = _name.substring(_name.lastIndexOf("/")+1);
 			String ext = "Unknown_";
