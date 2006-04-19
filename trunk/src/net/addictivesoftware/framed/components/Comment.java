@@ -17,6 +17,7 @@ import org.apache.tapestry.BaseComponent;
 import org.apache.tapestry.annotations.InjectObject;
 import org.apache.tapestry.annotations.InjectState;
 import org.apache.tapestry.annotations.InjectStateFlag;
+import org.apache.tapestry.web.WebRequest;
 import org.xml.sax.SAXException;
 
 public abstract class Comment extends BaseComponent {
@@ -26,14 +27,18 @@ public abstract class Comment extends BaseComponent {
 	@InjectObject("service:tapestry.globals.ServletContext")
 	public abstract ServletContext getServletContext();
 
+	@InjectObject("service:tapestry.globals.WebRequest")
+	public abstract WebRequest getWebRequest();
+	
 	@InjectObject("service:framed.FotoPathService")
 	public abstract FotoPathService getFotoPathService();
     
     public String getComment() {
-    	String result = "no comment (yet)";
-    	String path = getServletContext().getRealPath(getFotoPathService().getCurrentPath() + "/") + "/comments.xml";
+    	String sessionId = getWebRequest().getSession(true).getId();
+    	
+    	String path = getServletContext().getRealPath(getFotoPathService().getCurrentPath(sessionId) + "/") + "/comments.xml";
     	String imageName = getImage().substring(getImage().lastIndexOf("/")+1);
-
+    	String result = "no comment (yet) for " + imageName;
     	File file = new File(path);
     	
         CommentService parser;

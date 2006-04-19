@@ -16,6 +16,7 @@ import org.apache.tapestry.PageRedirectException;
 import org.apache.tapestry.annotations.InitialValue;
 import org.apache.tapestry.annotations.InjectObject;
 import org.apache.tapestry.annotations.Persist;
+import org.apache.tapestry.web.WebRequest;
 
 public abstract class DirComment extends BaseComponent {
 
@@ -25,6 +26,9 @@ public abstract class DirComment extends BaseComponent {
 	@InjectObject("service:framed.FotoPathService")
 	public abstract FotoPathService getFotoPathService();
 	
+	@InjectObject("service:tapestry.globals.WebRequest")
+	public abstract WebRequest getWebRequest();
+
 	@Persist("session")
 	@InitialValue("false")
 	public abstract Boolean getEditmode();
@@ -43,7 +47,9 @@ public abstract class DirComment extends BaseComponent {
     	System.out.println("saving dir comment");
     	
     	this.setEditmode(false);
-    	String path = getServletContext().getRealPath(getFotoPathService().getCurrentPath() + "/") + "/comments.xml";
+    
+    	String sessionId = getWebRequest().getSession(true).getId();
+    	String path = getServletContext().getRealPath(getFotoPathService().getCurrentPath(sessionId) + "/") + "/comments.xml";
     	File file = new File(path);
     	
     	CommentService parser = getCommentParser(file);
@@ -54,7 +60,8 @@ public abstract class DirComment extends BaseComponent {
     
     public String getComment() {
     	String result = "no comment (yet)";
-    	String path = getServletContext().getRealPath(getFotoPathService().getCurrentPath() + "/") + "/comments.xml";
+    	String sessionId = getWebRequest().getSession(true).getId();
+    	String path = getServletContext().getRealPath(getFotoPathService().getCurrentPath(sessionId) + "/") + "/comments.xml";
 
     	File file = new File(path);
     	

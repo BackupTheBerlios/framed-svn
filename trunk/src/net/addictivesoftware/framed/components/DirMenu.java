@@ -10,6 +10,7 @@ import net.addictivesoftware.framed.services.FotoPathService;
 
 import org.apache.tapestry.BaseComponent;
 import org.apache.tapestry.annotations.InjectObject;
+import org.apache.tapestry.web.WebRequest;
 
 public abstract class DirMenu extends BaseComponent {
 	
@@ -19,10 +20,14 @@ public abstract class DirMenu extends BaseComponent {
 	@InjectObject("service:tapestry.globals.ServletContext")
 	public abstract ServletContext getServletContext();
 
+	@InjectObject("service:tapestry.globals.WebRequest")
+	public abstract WebRequest getWebRequest();
+
 	public ArrayList<MenuItem> getMenuItems() {
 		ArrayList<MenuItem> aList = new ArrayList<MenuItem>();
 
-		String path = getFotoPathService().getCurrentPath();		
+    	String sessionId = getWebRequest().getSession(true).getId();
+    	String path = getFotoPathService().getCurrentPath(sessionId);		
 		String realpath = getServletContext().getRealPath(path);
 		
 		File currentDir = new File(realpath);
@@ -49,7 +54,8 @@ public abstract class DirMenu extends BaseComponent {
 	}
 	
 	public void addPathToURL(String _path) {
-		getFotoPathService().setCurrentPath(_path);
+		String sessionId = getWebRequest().getSession(true).getId();
+		getFotoPathService().setCurrentPath(sessionId, _path);
 	}
 	
 }

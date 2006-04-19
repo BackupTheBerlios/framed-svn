@@ -19,11 +19,15 @@ import net.addictivesoftware.framed.IPhotoList;
 import net.addictivesoftware.framed.SecureFileSystemPhotoList;
 import net.addictivesoftware.framed.security.User;
 import net.addictivesoftware.framed.services.FotoPathService;
+import net.addictivesoftware.framed.services.ThumbNailService;
 
 import org.apache.tapestry.IBinding;
 import org.apache.tapestry.IRequestCycle;
+import org.apache.tapestry.PageRedirectException;
 import org.apache.tapestry.annotations.InjectObject;
 import org.apache.tapestry.annotations.Meta;
+import org.apache.tapestry.annotations.Persist;
+import org.apache.tapestry.web.WebRequest;
 import org.xml.sax.SAXException;
 
 
@@ -33,12 +37,20 @@ public abstract class Album extends FramedPage {
 	
 	@InjectObject("service:tapestry.globals.ServletContext")
 	public abstract ServletContext getServletContext();
-				
+
+	@InjectObject("service:tapestry.globals.WebRequest")
+	public abstract WebRequest getWebRequest();
+
 	@InjectObject("service:framed.FotoPathService")
 	public abstract FotoPathService getFotoPathService();
+
+	@InjectObject("service:framed.ThumbNailService")
+	public abstract ThumbNailService getThumbNailService();
 	
 	public List getEntries() {
-			String dir = getServletContext().getRealPath(getFotoPathService().getCurrentPath() + "/");
+			getWebRequest().getSession(true).getId();
+			String sessionId = getWebRequest().getSession(true).getId();
+	    	String dir = getServletContext().getRealPath(getFotoPathService().getCurrentPath(sessionId) + "/");
 			aList = new SecureFileSystemPhotoList(dir, getValidFiles(dir));
 				return aList.getEntries();
 	}
@@ -52,6 +64,18 @@ public abstract class Album extends FramedPage {
 		cycle.activate(detailPage);
     }
 		
+	public void doDeleteThumb(IRequestCycle cycle) {
+		Object[] params = cycle.getListenerParameters();
+		String image = (String)params[0];
+		String thumbImage = getThumbNailService().getThumbName(image);
+		File file = new File(thumbImage);
+		if (null != file && file.exists()) {
+			file.delete();
+			System.out.println("Thumb deleted");
+		}
+		throw new PageRedirectException(this.getPageName());
+	}
+	
     private List<String> getValidFiles(String _dir) {
 		File file = new File(_dir + "/comments.xml");
 		CommentService parser;

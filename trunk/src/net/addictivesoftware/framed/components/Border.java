@@ -5,6 +5,7 @@ import java.util.Locale;
 import net.addictivesoftware.framed.Visit;
 import net.addictivesoftware.framed.pages.FramedPage;
 import net.addictivesoftware.framed.pages.Home;
+import net.addictivesoftware.framed.security.User;
 import net.addictivesoftware.framed.services.ApplicationLifecycle;
 
 import org.apache.tapestry.BaseComponent;
@@ -58,8 +59,19 @@ public abstract class Border extends BaseComponent {
     public void toggleEditMode(IRequestCycle cycle) {
     	FramedPage page = (FramedPage)this.getPage();
     	//page.setEditmode(! page.getEditmode());
-    	throw new PageRedirectException(this.getPage());    
+    	throw new PageRedirectException(this.getPage());
     }
+   
+    public boolean isAdmin(IRequestCycle cycle) {
+    	if (getVisitStateExists()) {
+    		User user = getVisitState().getUser();
+    		if (user.isAdmin()) {
+    			System.out.println("USER:" + user.getName() + " is admin");    			return true;
+    		}
+    	}
+    	return false;
+    }
+    
     
     
     
