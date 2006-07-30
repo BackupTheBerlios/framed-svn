@@ -15,17 +15,17 @@ features :
 	v autocreating of comment files
 
 version 0.3
-	- add new foto's in dit to comment files
-	b comments editable
-	- rights editable
-	- deleting of thumbs
-	- foto dir outside of webapp
+	- add new foto's in dir to comment files
+	v deleting of thumbs
+	b foto dir outside of webapp
 	- possibility to open/download original size 
 
 version 0.4
 	v adminpart
+		b comments editable
+		- rights editable
 		b throw away thumbnails
-		b create comments files
+		v create comments files
 		- user management
 		- improved file(foto) management
 		
