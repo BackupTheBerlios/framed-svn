@@ -3,7 +3,6 @@ package net.addictivesoftware.framed;
 import java.io.File;
 import java.io.IOException;
 import java.util.HashMap;
-import java.util.LinkedList;
 
 import javax.xml.parsers.ParserConfigurationException;
 
