@@ -87,4 +87,8 @@ textarea.comment {
 	width : 200px;
 	background-color : yellow;
 }
-
+div.colorPlate {
+    float: left;
+    width: 20px;
+    height: 10px;
+}
