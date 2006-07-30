@@ -22,6 +22,7 @@
 				<set property="thumbWidth" value="120" />
 				<set property="thumbHeight" value="60" />
 				<set property="quality" value="60" />
+				<set property="thumbPath" value="/data/fotos" />
 			</construct>
 		</invoke-factory>
      </service-point>
