@@ -28,13 +28,9 @@ public abstract class DirMenu extends BaseComponent {
 
     	String sessionId = getWebRequest().getSession(true).getId();
     	String path = getFotoPathService().getCurrentPath(sessionId);		
-		String realpath = getServletContext().getRealPath(path);
-		
-		File currentDir = new File(realpath);
 
-		if (null == path || "".equals(path)) {
-			path = getFotoPathService().getPath();
-		}
+		File currentDir = new File(path);
+
 		// if path is not equal to root path add parent
 		if (!path.equals(getFotoPathService().getPath())) {
 			String parent = currentDir.getParent();
@@ -45,7 +41,6 @@ public abstract class DirMenu extends BaseComponent {
 			File[] files = currentDir.listFiles();
 			for (int i = 0; i < files.length; i++) {
 				if (files[i].isDirectory()) {
-					
 					aList.add(new MenuItem(files[i].getName(), path + "/" + files[i].getName()));
 				}
 			}
