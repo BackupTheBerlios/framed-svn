@@ -48,11 +48,10 @@ public abstract class Album extends FramedPage {
 	public abstract ThumbNailService getThumbNailService();
 	
 	public List getEntries() {
-			getWebRequest().getSession(true).getId();
 			String sessionId = getWebRequest().getSession(true).getId();
-	    	String dir = getServletContext().getRealPath(getFotoPathService().getCurrentPath(sessionId) + "/");
+	    	String dir = getFotoPathService().getCurrentPath(sessionId) + "/";
 			aList = new SecureFileSystemPhotoList(dir, getValidFiles(dir));
-				return aList.getEntries();
+			return aList.getEntries();
 	}
 
 	public void doDetailPage(IRequestCycle cycle) {
@@ -63,7 +62,7 @@ public abstract class Album extends FramedPage {
 		detailPage.getNestedComponent("foto").setBinding("image",imageBinding);
 		cycle.activate(detailPage);
     }
-		
+	//TODO move this to admin page	
 	public void doDeleteThumb(IRequestCycle cycle) {
 		Object[] params = cycle.getListenerParameters();
 		String image = (String)params[0];
