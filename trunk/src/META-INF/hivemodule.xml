@@ -7,7 +7,7 @@
 		
 		<invoke-factory>
 			<construct class="FotoPathServiceImpl">
-				<set property="path" value="/fotos" />
+				<set property="path" value="/data/fotos" />
 			</construct>
 		</invoke-factory>
      </service-point>
@@ -20,9 +20,9 @@
 		<invoke-factory>
 	     	<construct class="ThumbNailServiceImpl">
 				<set property="thumbWidth" value="120" />
-				<set property="thumbHeight" value="60" />
+				<set property="thumbHeight" value="120" />
 				<set property="quality" value="60" />
-				<set property="thumbPath" value="/data/fotos" />
+				<set property="thumbPath" value="/fotos" />
 			</construct>
 		</invoke-factory>
      </service-point>
