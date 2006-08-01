@@ -135,19 +135,21 @@ public class CommentServiceImpl implements CommentService {
 		Node commentNode = m_doc.createElement("comment");
 		commentNode.setTextContent("***generated comment file***");
 		rootNode.appendChild(commentNode);
-		for (int i=0;i<files.length;i++) {
-			if (ImageHelper.isImage(files[i]) && !ImageHelper.isThumb(files[i])) {
-				Node fotoNode = m_doc.createElement("foto");
-
-				Attr attr = m_doc.createAttribute("path");
-				attr.setValue(files[i].getName());
-				fotoNode.getAttributes().setNamedItem(attr);
-				
-				attr = m_doc.createAttribute("view");
-				attr.setValue("all");
-				fotoNode.getAttributes().setNamedItem(attr);
-				
-				rootNode.appendChild(fotoNode);
+		if (null != files) {
+			for (int i=0;i<files.length;i++) {
+				if (ImageHelper.isImage(files[i]) && !ImageHelper.isThumb(files[i])) {
+					Node fotoNode = m_doc.createElement("foto");
+	
+					Attr attr = m_doc.createAttribute("path");
+					attr.setValue(files[i].getName());
+					fotoNode.getAttributes().setNamedItem(attr);
+					
+					attr = m_doc.createAttribute("view");
+					attr.setValue("all");
+					fotoNode.getAttributes().setNamedItem(attr);
+					
+					rootNode.appendChild(fotoNode);
+				}
 			}
 		}
 		m_doc.appendChild(rootNode);
