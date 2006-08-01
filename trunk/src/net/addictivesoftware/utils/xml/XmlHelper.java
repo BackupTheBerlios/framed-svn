@@ -40,12 +40,26 @@ import org.xml.sax.SAXException;
  * TODO To change the template for this generated type comment go to
  * Window - Preferences - Java - Code Style - Code Templates
  */
+
 public class XmlHelper {
+	
+	/**
+	 * @param _file
+	 * @return
+	 * @throws SAXException
+	 * @throws IOException
+	 * @throws ParserConfigurationException
+	 */
 	public static Document createDomDocument(File _file) throws SAXException, IOException, ParserConfigurationException {
 		DocumentBuilderFactory factory = DocumentBuilderFactory.newInstance();
 		DocumentBuilder builder = factory.newDocumentBuilder();
 		return builder.parse( _file );
 	}
+	
+	/**
+	 * @return
+	 * @throws ParserConfigurationException
+	 */
 	public static Document createDomDocument() throws ParserConfigurationException {
 		DocumentBuilderFactory factory = DocumentBuilderFactory.newInstance();
 		DocumentBuilder builder = factory.newDocumentBuilder();
@@ -54,18 +68,45 @@ public class XmlHelper {
 	
 	private static XPath xpathprocessor  = null;
 
+	/**
+	 * @param _doc
+	 * @param _xpath
+	 * @param _nsContext
+	 * @return
+	 * @throws XPathExpressionException
+	 */
 	public static Object evalXPath(Document _doc, String _xpath, NamespaceContext _nsContext) throws XPathExpressionException {
 		return evalXPath(_doc, _xpath, _nsContext, XPathConstants.STRING);
 	}
 	
+	/**
+	 * @param _doc
+	 * @param _xpath
+	 * @return
+	 * @throws XPathExpressionException
+	 */
 	public static Node getNode(Document _doc, String _xpath) throws XPathExpressionException {
 		return (Node)evalXPath(_doc, _xpath, null, XPathConstants.NODE);
 	}
 	
+	/**
+	 * @param _doc
+	 * @param _xpath
+	 * @return
+	 * @throws XPathExpressionException
+	 */
 	public static NodeList getNodeList(Document _doc, String _xpath) throws XPathExpressionException {
 		return (NodeList)evalXPath(_doc, _xpath, null, XPathConstants.NODESET);
 	}
 	
+	/**
+	 * @param _doc
+	 * @param _xpath
+	 * @param _nsContext
+	 * @param _returnType
+	 * @return
+	 * @throws XPathExpressionException
+	 */
 	private static Object evalXPath(Document _doc, String _xpath, NamespaceContext _nsContext, QName _returnType) throws XPathExpressionException {
 		//get an XPath processor
 		if (null == xpathprocessor) {
@@ -85,11 +126,21 @@ public class XmlHelper {
 
 		return compiledXPath.evaluate(_doc, _returnType);	}
 	
+	/**
+	 * @param _doc
+	 * @param _fileName
+	 * @return
+	 */
 	public static boolean save(Document _doc, String _fileName) {
 		File file = new File(_fileName);
 		return save(_doc, file);
 	}
 
+	/**
+	 * @param _doc
+	 * @param _file
+	 * @return
+	 */
 	public static boolean save(Document _doc, File _file) {
 		try {
 	        TransformerFactory tranFactory = TransformerFactory.newInstance();
