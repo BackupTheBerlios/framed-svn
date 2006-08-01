@@ -16,12 +16,10 @@ public class FotoPathServiceImpl implements FotoPathService {
 	}
 
 	public String getCurrentPath(String _sessionId) {
-		if (this.currentPaths.containsKey(_sessionId)) {
-			return currentPaths.get(_sessionId);
-		} else {
+		if (!this.currentPaths.containsKey(_sessionId)) {
 			this.setCurrentPath(_sessionId, getPath());
-			return getPath();
 		}
+		return currentPaths.get(_sessionId);
 	}
 
 	public void setCurrentPath(String _sessionId, String _currentPath) {
