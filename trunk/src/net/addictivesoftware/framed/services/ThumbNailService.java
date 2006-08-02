@@ -62,9 +62,10 @@ public interface ThumbNailService {
 
 	/**
 	 * @param imageName
+	 * @param createPath
 	 * @return
 	 */
-	public String getThumbName(String imageName) ;
+	public String getThumbName(String imageName, boolean createPath) ;
 	
 	/**
 	 * @return

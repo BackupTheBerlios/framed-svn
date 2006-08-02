@@ -1,5 +1,7 @@
 package net.addictivesoftware.framed.components;
 
+import javax.servlet.ServletContext;
+
 import net.addictivesoftware.framed.services.FotoPathService;
 import net.addictivesoftware.framed.services.ThumbNailService;
 
@@ -21,6 +23,9 @@ public abstract class Thumb extends BaseComponent {
 	@InjectObject("service:framed.FotoPathService")
 	public abstract FotoPathService getFotoPathService();
 	
+	@InjectObject("service:tapestry.globals.ServletContext")
+	public abstract ServletContext getServletContext();
+	
     protected void renderComponent(IMarkupWriter writer, IRequestCycle cycle)
     {
         // Doesn't contain a body so no need to do anything on rewind (assumes no
@@ -34,12 +39,17 @@ public abstract class Thumb extends BaseComponent {
         if (sURL == null) {
             throw Tapestry.createRequiredParameterException(this, "image");
         }
-
+System.out.println("Thumb.java sURL=" + sURL);
         // gets the url for the thumbnail, creates the thumbnail if need be
-        String sThumbImageURL = getThumbNailService().create(sURL, getWidth(), getHeight());
+
+		String context = getServletContext().getRealPath("/");
+System.out.println("Thumb.java sURL=" + context);
+
+		String basePath = getFotoPathService().getPath();
+		String sThumbImageURL = getThumbNailService().create(context, basePath, sURL, getWidth(), getHeight());
         
-        String sRelativeThumbImageURL = sThumbImageURL.substring(sThumbImageURL.indexOf(getFotoPathService().getPath())+1);
-              
+        String sRelativeThumbImageURL = sThumbImageURL.substring(sThumbImageURL.indexOf(getThumbNailService().getThumbPath())+1);
+System.out.println("|" + sRelativeThumbImageURL + "|" + sThumbImageURL + "|" + getThumbNailService().getThumbPath());              
         writer.beginEmpty("img");
 
         writer.attribute("src", sRelativeThumbImageURL);

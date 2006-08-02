@@ -66,7 +66,7 @@ public abstract class Album extends FramedPage {
 	public void doDeleteThumb(IRequestCycle cycle) {
 		Object[] params = cycle.getListenerParameters();
 		String image = (String)params[0];
-		String thumbImage = getThumbNailService().getThumbName(image);
+		String thumbImage = getThumbNailService().getThumbName(image, false);
 		File file = new File(thumbImage);
 		if (null != file && file.exists()) {
 			file.delete();

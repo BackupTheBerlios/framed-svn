@@ -21,7 +21,7 @@
 	     	<construct class="ThumbNailServiceImpl">
 				<set property="thumbWidth" value="120" />
 				<set property="thumbHeight" value="120" />
-				<set property="quality" value="60" />
+				<set property="quality" value="100" />
 				<set property="thumbPath" value="/fotos" />
 			</construct>
 		</invoke-factory>
