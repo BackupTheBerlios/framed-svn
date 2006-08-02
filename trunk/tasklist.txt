@@ -17,7 +17,7 @@ features :
 version 0.3
 	- add new foto's in dir to comment files
 	v deleting of thumbs
-	b foto dir outside of webapp
+	v foto dir outside of webapp
 	- possibility to open/download original size 
 
 version 0.4
