@@ -7,7 +7,7 @@
 		
 		<invoke-factory>
 			<construct class="FotoPathServiceImpl">
-				<set property="path" value="/data/fotos" />
+				<set property="path" value="/home/gertjan/fotos" />
 			</construct>
 		</invoke-factory>
      </service-point>
