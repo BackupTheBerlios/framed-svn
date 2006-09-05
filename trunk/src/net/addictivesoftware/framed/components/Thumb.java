@@ -39,25 +39,29 @@ public abstract class Thumb extends BaseComponent {
         if (sURL == null) {
             throw Tapestry.createRequiredParameterException(this, "image");
         }
-System.out.println("Thumb.java sURL=" + sURL);
         // gets the url for the thumbnail, creates the thumbnail if need be
 
 		String context = getServletContext().getRealPath("/");
-System.out.println("Thumb.java sURL=" + context);
 
 		String basePath = getFotoPathService().getPath();
 		String sThumbImageURL = getThumbNailService().create(context, basePath, sURL, getWidth(), getHeight());
-        
+        String sBiggerImageURL = getThumbNailService().create(context, basePath, sURL, 760, 570);
         String sRelativeThumbImageURL = sThumbImageURL.substring(sThumbImageURL.indexOf(getThumbNailService().getThumbPath())+1);
-System.out.println("|" + sRelativeThumbImageURL + "|" + sThumbImageURL + "|" + getThumbNailService().getThumbPath());              
-        writer.beginEmpty("img");
+        String sRelativeBiggerImageURL = sBiggerImageURL.substring(sBiggerImageURL.indexOf(getThumbNailService().getThumbPath())+1);
 
-        writer.attribute("src", sRelativeThumbImageURL);
-        writer.attribute("border", "0");
+        writer.begin("a");
+        writer.attribute("class", "thickbox");
+        writer.attribute("rel", "same-for-paging");
+        writer.attribute("href", sRelativeBiggerImageURL); 
+
+        	writer.beginEmpty("img");
+        	writer.attribute("src", sRelativeThumbImageURL);
+        	writer.attribute("border", "0");
         
-        renderInformalParameters(writer, cycle);
+        		renderInformalParameters(writer, cycle);
 
-        writer.closeTag();
+        	writer.closeTag();
+        writer.end("a");
     }
 
 }
