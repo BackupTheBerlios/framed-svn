@@ -3,6 +3,7 @@ package net.addictivesoftware.framed;
 
 import java.io.File;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 public class SecureFileSystemPhotoList implements IPhotoList {
@@ -16,9 +17,11 @@ public class SecureFileSystemPhotoList implements IPhotoList {
 		
 		if (dir.isDirectory()) {
 			File[] files = dir.listFiles();
+			Arrays.sort(files);
 			for (int i=0;i<files.length;i++) {
 				File file = files[i];
-				if (	! file.isDirectory() 
+				if (	! file.isDirectory()
+						&& ! file.isHidden()
 						&& isImage(file) 
 						&& !isThumb(file)
 						&& isValidFile( _validFiles, file.getName())) {
