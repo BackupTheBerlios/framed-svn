@@ -20,4 +20,3 @@
 	<component-type type="ShowMessage" specification-path="/net/addictivesoftware/framed/components/ShowMessage.jwc" />
 	<component-type type="Information" specification-path="/net/addictivesoftware/framed/components/Information.jwc" />
 </application>
-
