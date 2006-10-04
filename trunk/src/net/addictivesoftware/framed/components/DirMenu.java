@@ -40,7 +40,7 @@ public abstract class DirMenu extends BaseComponent {
 		if (currentDir.exists() && currentDir.isDirectory()) {
 			File[] files = currentDir.listFiles();
 			for (int i = 0; i < files.length; i++) {
-				if (files[i].isDirectory()) {
+				if (files[i].isDirectory() && !files[i].getName().startsWith(".")) {
 					aList.add(new MenuItem(files[i].getName(), path + "/" + files[i].getName()));
 				}
 			}
