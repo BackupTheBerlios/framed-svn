@@ -35,8 +35,10 @@ function TB_show(caption, url, imageGroup) {//function called when the user clic
  		
 		TB_overlaySize();
 		
+		
 		$("body").append("<div id='TB_load'><img src='images/loadingAnimation.gif' /></div>");
 		TB_load_position();
+
 		
 		var urlString = /\.jpg|\.jpeg|\.png|\.gif|\.html|\.htm|\.php|\.cfm|\.asp|\.aspx|\.jsp|\.jst|\.rb|\.txt|\.bmp/g;
 		var urlType = url.toLowerCase().match(urlString);
