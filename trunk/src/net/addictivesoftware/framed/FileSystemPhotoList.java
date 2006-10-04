@@ -2,6 +2,8 @@ package net.addictivesoftware.framed;
 
 import java.io.File;
 import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Collections;
 import java.util.List;
 
 public class FileSystemPhotoList implements IPhotoList {
@@ -15,13 +17,18 @@ public class FileSystemPhotoList implements IPhotoList {
 		
 		if (dir.isDirectory()) {
 			File[] files = dir.listFiles();
+			Arrays.sort(files);
 			for (int i=0;i<files.length;i++) {
 				File file = files[i];
-				if (! file.isDirectory() && isImage(file) && !isThumb(file)) {
-					PhotoListEntry e = new PhotoListEntry(file);
-					addEntry(e);
+				if (! file.isDirectory() 
+						&& isImage(file) 
+						&& !isThumb(file)
+						&& !file.getName().startsWith(".")
+						) {
+					addEntry(new PhotoListEntry(file));
 				}
 			}
+			
 		} else {
 			System.out.println(dir + " is NOT a directory");
 		}
