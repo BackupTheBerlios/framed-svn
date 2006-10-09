@@ -7,6 +7,7 @@ import javax.servlet.ServletContext;
 
 import net.addictivesoftware.framed.MenuItem;
 import net.addictivesoftware.framed.services.FotoPathService;
+import net.addictivesoftware.utils.Const;
 
 import org.apache.tapestry.BaseComponent;
 import org.apache.tapestry.annotations.InjectObject;
@@ -34,14 +35,17 @@ public abstract class DirMenu extends BaseComponent {
 		// if path is not equal to root path add parent
 		if (!path.equals(getFotoPathService().getPath())) {
 			String parent = currentDir.getParent();
-			aList.add(new MenuItem(parent.substring(parent.lastIndexOf("/")), path.substring(0,path.lastIndexOf("/"))));
+			aList.add(new MenuItem(parent.substring(parent.lastIndexOf(Const.SEPARATOR)), path.substring(0,path.lastIndexOf(Const.SEPARATOR))));
 		}
 		
 		if (currentDir.exists() && currentDir.isDirectory()) {
 			File[] files = currentDir.listFiles();
 			for (int i = 0; i < files.length; i++) {
-				if (files[i].isDirectory() && !files[i].getName().startsWith(".")) {
-					aList.add(new MenuItem(files[i].getName(), path + "/" + files[i].getName()));
+				if (files[i].isDirectory() 
+						&& !files[i].getName().startsWith(".") 
+						&& !files[i].getName().equalsIgnoreCase("thumbs.db")
+						) {
+					aList.add(new MenuItem(files[i].getName(), path + Const.SEPARATOR + files[i].getName()));
 				}
 			}
 		}

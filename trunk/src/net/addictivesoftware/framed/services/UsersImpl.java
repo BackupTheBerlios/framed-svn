@@ -2,10 +2,6 @@ package net.addictivesoftware.framed.services;
 
 import java.util.ArrayList;
 
-import javax.servlet.ServletContext;
-
-import org.apache.tapestry.annotations.InjectObject;
-
 import net.addictivesoftware.framed.security.Role;
 import net.addictivesoftware.framed.security.User;
 

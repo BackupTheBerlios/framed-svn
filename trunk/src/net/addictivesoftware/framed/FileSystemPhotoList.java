@@ -3,7 +3,6 @@ package net.addictivesoftware.framed;
 import java.io.File;
 import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.Collections;
 import java.util.List;
 
 public class FileSystemPhotoList implements IPhotoList {

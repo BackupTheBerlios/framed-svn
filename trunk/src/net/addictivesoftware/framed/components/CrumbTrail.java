@@ -5,6 +5,7 @@ import java.util.StringTokenizer;
 
 import net.addictivesoftware.framed.Crumb;
 import net.addictivesoftware.framed.services.FotoPathService;
+import net.addictivesoftware.utils.Const;
 
 import org.apache.tapestry.BaseComponent;
 import org.apache.tapestry.IRequestCycle;
@@ -25,7 +26,7 @@ public abstract class CrumbTrail extends BaseComponent {
 		String sessionId = getWebRequest().getSession(true).getId();
 		String currentPath = getFotoPathService().getCurrentPath(sessionId);
 		
-		StringTokenizer st = new StringTokenizer(currentPath, "/");
+		StringTokenizer st = new StringTokenizer(currentPath, Const.SEPARATOR);
 		while (st.hasMoreTokens()) {
 			String crumb = st.nextToken();
 			

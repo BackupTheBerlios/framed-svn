@@ -12,10 +12,11 @@ public class CommentServiceFactory {
 	private static HashMap<String, CommentService> csMap = new HashMap<String, CommentService>();
 	
 	public static CommentService getInstance(File _file) {
-		System.out.println("getInstance : " + _file.getAbsolutePath());
-		if (false && contains(_file.getAbsolutePath())) {
+		String path = _file.getAbsolutePath().replace(":", "_");
+		System.out.println("getInstance : " + path);
+		if (false && contains(path)) {
 			System.out.println("getInstance : returning instance");
-			return get(_file.getAbsolutePath());
+			return get(path);
 		} else {
 			System.out.println("getInstance : creating instance");
 			CommentService cs = null;
@@ -31,7 +32,7 @@ public class CommentServiceFactory {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
-			csMap.put(_file.getAbsolutePath(), cs);
+			csMap.put(path, cs);
 			return cs;
 		}
 	}

@@ -20,6 +20,8 @@ import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
 
+import net.addictivesoftware.utils.Const;
+
 import com.sun.image.codec.jpeg.ImageFormatException;
 import com.sun.image.codec.jpeg.JPEGCodec;
 import com.sun.image.codec.jpeg.JPEGEncodeParam;
@@ -32,7 +34,7 @@ public class ThumbNailServiceImpl implements ThumbNailService {
 		private static final int SCALE_METHOD_WIDTH = 1;
 		private static final int SCALE_METHOD_HEIGHT = 2;
 		private static String thumbPath;
-	
+		
 		private int thumbHeight = 120;
 		private int thumbWidth = 120;
 		private double thumbRatio = 0.5d;
@@ -42,6 +44,7 @@ public class ThumbNailServiceImpl implements ThumbNailService {
 
 		private String basePath;
 		private String context;
+	
 		
 		/**
 		 * 
@@ -223,7 +226,7 @@ public class ThumbNailServiceImpl implements ThumbNailService {
 		}
 
 		private boolean isThumb(String _name) {
-			String filename = _name.substring(_name.lastIndexOf("/")+1);
+			String filename = _name.substring(_name.lastIndexOf(Const.SEPARATOR)+1);
 			String ext = "";
 			switch (namingMethod) {
 				case NAMING_METHOD_T_:
@@ -244,8 +247,8 @@ public class ThumbNailServiceImpl implements ThumbNailService {
 		 * @return
 		 */
 		public String getThumbName(String _name, boolean _createPath) {
-			String path = _name.substring(this.basePath.length(),_name.lastIndexOf("/")+1);
-			String filename = _name.substring(_name.lastIndexOf("/")+1);
+			String path = _name.substring(this.basePath.length(),_name.lastIndexOf(Const.SEPARATOR)+1).replace(":", "_");
+			String filename = _name.substring(_name.lastIndexOf(Const.SEPARATOR)+1);
 			String ext = "Unknown_";
 			switch (namingMethod) {
 				case NAMING_METHOD_T_:

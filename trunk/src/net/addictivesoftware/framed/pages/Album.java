@@ -20,13 +20,13 @@ import net.addictivesoftware.framed.SecureFileSystemPhotoList;
 import net.addictivesoftware.framed.security.User;
 import net.addictivesoftware.framed.services.FotoPathService;
 import net.addictivesoftware.framed.services.ThumbNailService;
+import net.addictivesoftware.utils.Const;
 
 import org.apache.tapestry.IBinding;
 import org.apache.tapestry.IRequestCycle;
 import org.apache.tapestry.PageRedirectException;
 import org.apache.tapestry.annotations.InjectObject;
 import org.apache.tapestry.annotations.Meta;
-import org.apache.tapestry.annotations.Persist;
 import org.apache.tapestry.web.WebRequest;
 import org.xml.sax.SAXException;
 
@@ -49,11 +49,12 @@ public abstract class Album extends FramedPage {
 	
 	public List getEntries() {
 			String sessionId = getWebRequest().getSession(true).getId();
-	    	String dir = getFotoPathService().getCurrentPath(sessionId) + "/";
+	    	String dir = getFotoPathService().getCurrentPath(sessionId) + Const.SEPARATOR;
 			aList = new SecureFileSystemPhotoList(dir, getValidFiles(dir));
 			return aList.getEntries();
 	}
 
+	@Deprecated
 	public void doDetailPage(IRequestCycle cycle) {
 		Object[] params = cycle.getListenerParameters();
 		Detail detailPage = (Detail)cycle.getPage("Detail");
