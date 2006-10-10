@@ -7,6 +7,9 @@
 		
 		<invoke-factory>
 			<construct class="FotoPathServiceImpl">
+				<!--
+					Set Path to Foto directory here
+				-->
 				<set property="path" value="E:\Pictures\Colombia" />
 			</construct>
 		</invoke-factory>
