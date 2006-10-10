@@ -1,60 +1,70 @@
 <html>
 	<head>
-		<title>FileMenu Component</title>
-		<style text="text/css">
-			th, td {font-family : verdana; font-size : 12px;vertical-align : top;}
-			tr.odd {background-color: #ddddff}
-			tr.even {background-color: #dddddd}
-			.exif {vertical-align : top;}
-			.exif-odd {background-color : #444444; color : white;}
-			.exif-even {background-color : white; color: #444444;}
-			.comment {color :#444444; font-size : 14px; width:350px;}
-			a.menu {color:white;text-decoration:none;padding-left:10px;}
-			a.menu:hover {text-decoration:underline;padding-left:10px;}
-			a.footer {color:white;text-decoration:none;}
-			a.footer:hover {text-decoration:underline;}
-			table.exif {width : 350px;}
-		</style>	
+		<title>DirMenu Component</title>
 	</head>
 	<body bgcolor="#000090">
 		<span jwcid="$content$">
-			<table class="dirmenu">
-				<tr jwcid="elements@Foreach" source="ognl:menuItems" element="tr">
-  					<td>
-  						<span class="menu" jwcid="@DirectLink" listener="listener:addPathToURL" parameters="ognl:components.elements.value.path">
-  							<span jwcid="@Insert" value="ognl:components.elements.value.name" />
-  						</span>
-  					</td>
-				</tr>
-				<tr jwcid="$remove$">
-  					<td>
-  						<a href="#" class="menu">
-  							dummy menu item
-  						</a>
-  					</td>
-				</tr>
-				<tr jwcid="$remove$">
-  					<td>
-  						<a href="#" class="menu">
-  							dummy menu item
-  						</a>
-  					</td>
-				</tr>
-				<tr jwcid="$remove$">
-  					<td>
-  						<a href="#" class="menu">
-  							dummy menu item
-  						</a>
-  					</td>
-				</tr>
-				<tr jwcid="$remove$">
-  					<td>
-  						<a href="#" class="menu">
-  							dummy menu item
-  						</a>
-  					</td>
+			<table class="dirmenu-header">
+				<tr jwcid="header@Foreach" source="ognl:header" element="tr">
+					<!--
+					<span jwcid="@If" condition="components.header.value.path==null">
+	  					<td>
+	  						[<span jwcid="@Insert" value="ognl:components.header.value.path" />]
+	  						[<span jwcid="@Insert" value="ognl:components.header.value.path == null" />]
+  							<span class="menu" jwcid="@Insert" value="ognl:components.header.value.name" />
+	  					</td>
+	  				</span>
+  					<span jwcid="@Else"> 
+  					-->
+	  					<td>
+	  						<span class="menu" jwcid="@DirectLink" listener="listener:addPathToURL" parameters="ognl:components.header.value.path">
+	  							<span jwcid="@Insert" value="ognl:components.header.value.name" />
+	  						</span>
+	  					</td>
+					<!--	
+					</span>
+					-->
 				</tr>
 			</table>
+			<div class="dirmenu">
+				<table class="dirmenu">
+					<tr jwcid="elements@Foreach" source="ognl:menuItems" element="tr">
+	  					<td>
+	  						<span class="menu" jwcid="@DirectLink" title="ognl:components.elements.value.name" listener="listener:addPathToURL" parameters="ognl:components.elements.value.path">
+	  							<span jwcid="@Insert" value="ognl:components.elements.value.name" />
+	  						</span>
+	  					</td>
+					</tr>
+					<tr jwcid="$remove$">
+	  					<td>
+	  						<a href="#" class="menu">
+	  							dummy menu item
+	  						</a>
+	  					</td>
+					</tr>
+					<tr jwcid="$remove$">
+	  					<td>
+	  						<a href="#" class="menu">
+	  							dummy menu item
+	  						</a>
+	  					</td>
+					</tr>
+					<tr jwcid="$remove$">
+	  					<td>
+	  						<a href="#" class="menu">
+	  							dummy menu item
+	  						</a>
+	  					</td>
+					</tr>
+					<tr jwcid="$remove$">
+	  					<td>
+	  						<a href="#" class="menu">
+	  							dummy menu item
+	  						</a>
+	  					</td>
+					</tr>
+				</table>
+			</div>
 		</span>
 	</body>
 </html>

@@ -24,10 +24,10 @@ public abstract class DirMenu extends BaseComponent {
 	@InjectObject("service:tapestry.globals.WebRequest")
 	public abstract WebRequest getWebRequest();
 
-	public ArrayList<MenuItem> getMenuItems() {
+	public ArrayList getHeader() {
 		ArrayList<MenuItem> aList = new ArrayList<MenuItem>();
 
-    	String sessionId = getWebRequest().getSession(true).getId();
+		String sessionId = getWebRequest().getSession(true).getId();
     	String path = getFotoPathService().getCurrentPath(sessionId);		
 
 		File currentDir = new File(path);
@@ -36,14 +36,25 @@ public abstract class DirMenu extends BaseComponent {
 		if (!path.equals(getFotoPathService().getPath())) {
 			String parent = currentDir.getParent();
 			aList.add(new MenuItem(parent.substring(parent.lastIndexOf(Const.SEPARATOR)), path.substring(0,path.lastIndexOf(Const.SEPARATOR))));
+		} else {
+			aList.add(new MenuItem("ROOT", getFotoPathService().getPath()));
 		}
-		
+		return aList;		
+	}
+	
+	public ArrayList<MenuItem> getMenuItems() {
+		ArrayList<MenuItem> aList = new ArrayList<MenuItem>();
+
+    	String sessionId = getWebRequest().getSession(true).getId();
+    	String path = getFotoPathService().getCurrentPath(sessionId);		
+		File currentDir = new File(path);
+
 		if (currentDir.exists() && currentDir.isDirectory()) {
 			File[] files = currentDir.listFiles();
 			for (int i = 0; i < files.length; i++) {
 				if (files[i].isDirectory() 
 						&& !files[i].getName().startsWith(".") 
-						&& !files[i].getName().equalsIgnoreCase("thumbs.db")
+//						&& !files[i].getName().equalsIgnoreCase("thumbs.db")
 						) {
 					aList.add(new MenuItem(files[i].getName(), path + Const.SEPARATOR + files[i].getName()));
 				}
