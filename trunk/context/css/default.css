@@ -92,3 +92,18 @@ div.colorPlate {
     width: 20px;
     height: 10px;
 }
+
+table.dirmenu-header {
+	background-color : #AAAAAA;
+}
+
+table.dirmenu {
+}
+
+div.dirmenu {
+	padding-left : 2px;
+	overflow : hidden;
+	width : 195px;
+	left : 5px;
+	border : 1px solid #AAAAAA;
+}
