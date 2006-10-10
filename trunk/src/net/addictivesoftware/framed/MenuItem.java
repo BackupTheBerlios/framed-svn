@@ -6,7 +6,11 @@ public class MenuItem {
 
 	public MenuItem(String _name, String _path) {
 		this.name = _name;
-		this.path = _path;
+		if (_path.equals("")) {
+			this.path = null;
+		} else { 
+			this.path = _path;
+		}
 	}
 	
 	public String getName() {
