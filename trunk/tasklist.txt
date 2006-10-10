@@ -14,12 +14,14 @@ version 0.2
 	v autocreating of comment files
 
 version 0.3 
-	- add new foto's in dir to comment files
 	v deleting of thumbs
 	v foto dir outside of webapp
 	- possibility to open/download original size 
 	- easy deeplink to foto
 	- better dirmenu
+	- better commentsystem
+	- add new foto's in dir to comment files
+	- watermark service
 	
 version 0.4 administration
 	v adminpart
