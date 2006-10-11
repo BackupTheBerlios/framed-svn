@@ -1,3 +1,13 @@
+/**
+ * 
+ * @url         $URL: $
+ * @date        $Date:  $
+ * @version     $Revision:  $
+ * @author      $Author:  $
+ * @copyright   Addictive Software
+ * 
+ */
+
 package net.addictivesoftware.framed.pages;
 
 import org.apache.tapestry.annotations.Meta;
