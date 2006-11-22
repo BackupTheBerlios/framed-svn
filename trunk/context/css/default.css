@@ -59,7 +59,7 @@ a.locale {
 	color:#999999;
 	padding-left : 2px;
 	padding-right : 2px;
-
+}
 .message-red {
 	color:red;
 	font-weight:bold;
@@ -94,16 +94,23 @@ div.colorPlate {
 }
 
 table.dirmenu-header {
-	background-color : #AAAAAA;
+	background-color : #9999FF;
+	padding : 0px 10px 0px 0px;
 }
 
-table.dirmenu {
+td.dirmenu {
+	border-right : 1px solid #555555;	
+	border-bottom : 1px solid #555555;	
+	border-left : 1px solid #999999;	
+	border-top : 1px solid #999999;
+	width : 200px;	
+	background-color : #CCCCCC;
 }
-
 div.dirmenu {
 	padding-left : 2px;
 	overflow : hidden;
 	width : 195px;
 	left : 5px;
-	border : 1px solid #AAAAAA;
+	border : 1px solid #9999FF;
+	background-color : #9999FF;
 }
