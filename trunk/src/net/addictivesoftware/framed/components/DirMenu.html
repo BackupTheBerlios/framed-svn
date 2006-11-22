@@ -16,7 +16,7 @@
 	  				</span>
   					<span jwcid="@Else"> 
   					-->
-	  					<td>
+	  					<td >
 	  						<span class="menu" jwcid="@DirectLink" listener="listener:addPathToURL" parameters="ognl:components.header.value.path">
 	  							<span jwcid="@Insert" value="ognl:components.header.value.name" />
 	  						</span>
@@ -29,28 +29,28 @@
 			<div class="dirmenu">
 				<table class="dirmenu">
 					<tr jwcid="elements@Foreach" source="ognl:menuItems" element="tr">
-	  					<td>
+	  					<td class="dirmenu">
 	  						<span class="menu" jwcid="@DirectLink" title="ognl:components.elements.value.name" listener="listener:addPathToURL" parameters="ognl:components.elements.value.path">
 	  							<span jwcid="@Insert" value="ognl:components.elements.value.name" />
 	  						</span>
 	  					</td>
 					</tr>
 					<tr jwcid="$remove$">
-	  					<td>
+	  					<td class="dirmenu">
 	  						<a href="#" class="menu">
 	  							dummy menu item
 	  						</a>
 	  					</td>
 					</tr>
 					<tr jwcid="$remove$">
-	  					<td>
+	  					<td class="dirmenu">
 	  						<a href="#" class="menu">
 	  							dummy menu item
 	  						</a>
 	  					</td>
 					</tr>
 					<tr jwcid="$remove$">
-	  					<td>
+	  					<td class="dirmenu">
 	  						<a href="#" class="menu">
 	  							dummy menu item
 	  						</a>
