@@ -1,0 +1,30 @@
+<!DOCTYPE script PUBLIC
+  "-//Apache Software Foundation//Tapestry Script Specification 3.0//EN"
+  "http://jakarta.apache.org/tapestry/dtd/Script_3_0.dtd">
+<script>
+	<input-symbol key="latitude" class="java.lang.String" required="yes"/>
+	<input-symbol key="longitude" class="java.lang.String" required="yes"/>
+	<input-symbol key="zoom" class="java.lang.String" required="yes"/>
+	<input-symbol key="width" class="java.lang.String" required="yes"/>
+	<input-symbol key="height" class="java.lang.String" required="yes"/>
+	<input-symbol key="controls" class="java.lang.String" required="yes"/>
+	<input-symbol key="mapid" class="java.lang.String" required="yes"/>
+
+	<body>
+	<![CDATA[
+	    function load() {
+      		if (GBrowserIsCompatible()) {
+        		var map = new GMap2(document.getElementById("${mapid}"));
+        		map.setCenter(new GLatLng(${latitude}, ${longitude}), ${zoom});
+        		if (${controls}) {
+        			map.addControl(new GMapTypeControl());
+        			map.addControl(new GLargeMapControl());
+        		}
+      		}
+    	}
+	]]>
+	</body>
+	<initialization>
+		load();
+	</initialization>
+</script>
