@@ -19,4 +19,5 @@
 	<component-type type="ShowError" specification-path="/net/addictivesoftware/framed/components/ShowError.jwc" />
 	<component-type type="ShowMessage" specification-path="/net/addictivesoftware/framed/components/ShowMessage.jwc" />
 	<component-type type="Information" specification-path="/net/addictivesoftware/framed/components/Information.jwc" />
+	<component-type type="GoogleMap" specification-path="/net/addictivesoftware/framed/components/GoogleMap.jwc" />
 </application>
