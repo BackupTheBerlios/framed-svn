@@ -1,6 +1,6 @@
 TODO's (v = done/fixed, b = busy/working on it, w = workaround)
 version 0.1
-	v click on thumb, goto detailpage 
+	v click on thumb, goto detailpage
 	v Starting path of fotos configurable
 	v Reimplement ThumbNailFactory as a Hivemind Service
 	v exclude thumbnails when showing list
@@ -13,16 +13,16 @@ version 0.2
 	v right management on foto's
 	v autocreating of comment files
 
-version 0.3 
+version 0.3
 	v deleting of thumbs
 	v foto dir outside of webapp
-	- possibility to open/download original size 
+	- possibility to open/download original size
 	- easy deeplink to foto
 	- better dirmenu
 	- better commentsystem
 	- add new foto's in dir to comment files
 	- watermark service
-	
+
 version 0.4 administration
 	v adminpart
 		b comments editable
@@ -35,8 +35,8 @@ version 0.4 administration
 version 0.5 geolocation
 	- geolocation add long/lat for pictures
 	- extract geolocation from exif if present
-	- creating kml file with thumbnails for google earth
-		
+	- creating kml service with thumbnails for google earth
+
 bugs :
 	w sometimes a out of memory occurs when creating a thumbnail, resulting in a black thumbnail
 	v when no exif info is found, none should show
