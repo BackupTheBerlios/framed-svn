@@ -1,4 +1,4 @@
-<html xmlns="http://www.w3.org/1999/xhtml">
+<html>
   <head>
     <meta http-equiv="content-type" content="text/html; charset=utf-8"/>
     <title>Google Maps</title>
@@ -9,10 +9,10 @@
 	 		latitude="ognl:latitude"
 		  	longitude="ognl:longitude" 
 		  	zoom="ognl:zoom" 
-	  		width="600" 
-		  	height="400"
-		  	controls="true" 
-		  	mapid="map" />
-    <div id="map" style="width:600px;height:400px;"></div>
+	  		width="ognl:width" 
+		  	height="ognl:width"
+		  	controls="ognl:controls" 
+		  	mapid="ognl:mapid" />
+    <div jwcid="@Any" id="ognl:mapid" style="ognl:'width:'+ width + 'px;height:' + height + 'px;'"></div>
   </body>
 </html>

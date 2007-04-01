@@ -5,32 +5,37 @@
 <page-specification class="net.addictivesoftware.framed.pages.Album">
 
 	<property name="showTags" initial-value="literal:make, model, x_resolution, y_resolution" />
-  
+
   	<property name="fotoPath" initial-value="literal:fotos/" persist="session" />
-		
+
 	<bean name="evenOdd" class="org.apache.tapestry.bean.EvenOdd"/>
 
 	<component id="table" type="c:Table">
 		<binding name="source" value="entries" />
-		<binding name="columns" value="literal:path, photoExif" />
+		<binding name="columns" value="literal:path, photoExif, googleMap" />
 		<binding name="rowsClass" value="beans.evenOdd.next"/>
 		<binding name="pageSize" value="5" />
 	</component>
 
 	<component id="pathColumnValue" type="Block" />
 	<component id="pathColumnHeader" type="Block" />
-
 	<component id="thumb" type="Thumb">
 		<binding name="image" value="components.table.tableRow.path" />
 	</component>
 
 	<component id="photoExifColumnValue" type="Block" />
 	<component id="photoExifColumnHeader" type="Block" />
-	
+
 	<component id="exif" type="Exif">
 		<binding name="image" value="components.table.tableRow.path" />
 		<binding name="tags" value="showTags" />
 		<binding name="mode" value="literal:short" />
+	</component>
+
+	<component id="googleMapColumnValue" type="Block" />
+	<component id="googleMapColumnHeader" type="Block" />
+	<component id="googleMap" type="GoogleMap">
+
 	</component>
 
 	<component id="comment" type="Comment">

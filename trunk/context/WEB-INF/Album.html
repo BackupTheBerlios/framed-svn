@@ -8,23 +8,31 @@
 		<tr>
 		<th><span jwcid="pathColumnHeader"/></th>
 		<th><span jwcid="photoExifColumnHeader"/></th>
+		<th><span jwcid="googleMapColumnHeader"/></th>
 		</tr>
 		<tr class="odd">
-			<td jwcid="pathColumnValue"  width="350">
-				<span jwcid="thumb" width="300" height="200" rel="for-paging"/>
+			<td jwcid="pathColumnValue"  width="250">
+				<span jwcid="thumb" width="250" height="200" rel="for-paging"/>
 				<br/>
-				<div class="comment" width="350">
-					<span jwcid="comment" width="350"/>
+				<div class="comment" width="250">
+					<span jwcid="comment" width="250"/>
 					<br/>
 					<br/>
 				</div>
 			</td>
-			<td jwcid="photoExifColumnValue" width="350"><span jwcid="exif" /><br/>
+			<td jwcid="photoExifColumnValue" width="250"><span jwcid="exif" /><br/>
 					<br/>
 			</td>
+			<td jwcid="googleMapColumnValue">
+				<span jwcid="googleMap" 
+					  latitude="52.4083" longitude="3.6667" 
+					  zoom="12" mapid="test" controls="true"
+					  width="300" height="280"
+					  />
+			</td>
 		</tr>
-		<tr class="even" jwcid="$remove$"><td>path</td><td>photoExif</td></tr>
-		<tr class="odd" jwcid="$remove$"><td>path</td><td>photoExif</td></tr>
+		<tr class="even" jwcid="$remove$"><td>path</td><td>photoExif</td><td>map</td></tr>
+		<tr class="odd" jwcid="$remove$"><td>path</td><td>photoExif</td><td>map</td></tr>
 	</table>
 </span>
 </body>

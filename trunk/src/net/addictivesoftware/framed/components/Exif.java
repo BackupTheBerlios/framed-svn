@@ -21,11 +21,19 @@ import com.drew.metadata.exif.ExifDirectory;
 public abstract class Exif extends BaseComponent {
 
     public abstract String getImage();
-	
+
     public abstract String getTags();
-    
+
     public abstract String getMode();
-    
+
+    public String getLatitude() {
+    	return "52.46667";
+    }
+
+    public String getLongitude() {
+    	return "3.6667";
+    }
+
 
     protected void renderComponent(IMarkupWriter writer, IRequestCycle cycle)
     {
@@ -34,7 +42,7 @@ public abstract class Exif extends BaseComponent {
 
         if (cycle.isRewinding())
            return;
-    	
+
         String sImageURL = getImage();
         if (sImageURL == null)
             throw Tapestry.createRequiredParameterException(this, "image");
@@ -42,7 +50,7 @@ public abstract class Exif extends BaseComponent {
         writer.begin("table");
         writer.attribute("border", "0");
         writer.attribute("class", "exif");
-        
+
         File file = new File(sImageURL);
         if (file.exists() && !file.isDirectory()) {
             Metadata metadata;
@@ -60,7 +68,7 @@ public abstract class Exif extends BaseComponent {
     	 		} else {
     				writer.begin("tr");
     				writer.begin("td");
-    		        writer.attribute("colspan", "2");    				
+    		        writer.attribute("colspan", "2");
     				writer.print("no exif info found");
     				writer.begin("td");
     				writer.end("tr");
@@ -70,9 +78,9 @@ public abstract class Exif extends BaseComponent {
     			// TODO Auto-generated catch block
     			e1.printStackTrace();
     		}
-        	
+
         }
-        
+
 
 //         renderInformalParameters(writer, cycle);
 
@@ -84,7 +92,7 @@ public abstract class Exif extends BaseComponent {
 		while (errors.hasNext()) {
 			writer.begin("tr");
 			writer.begin("td");
-	        writer.attribute("colspan", "2");    				
+	        writer.attribute("colspan", "2");
 			writer.print((String)errors.next());
 			writer.begin("td");
 			writer.end("tr");
@@ -103,12 +111,12 @@ public abstract class Exif extends BaseComponent {
 		        writer.attribute("class", "exif-odd");
 			}
 			cnt++;
-			
+
 			writer.begin("td");
 	        writer.attribute("class", "exif");
 			 writer.print(tag.getTagName());
 			writer.end("td");
-			
+
 			writer.begin("td");
 	        writer.attribute("class", "exif");
 			try {
@@ -119,11 +127,11 @@ public abstract class Exif extends BaseComponent {
 			}
 			writer.end("td");
 	        writer.end("tr");
-				
+
 		}
-    	
+
     }
-    
+
     private void writeSomeTags(IMarkupWriter writer, Directory exifDir) {
 		Iterator tags = exifDir.getTagIterator();
 		int cnt = 0;
@@ -137,12 +145,12 @@ public abstract class Exif extends BaseComponent {
     		        writer.attribute("class", "exif-odd");
 				}
 				cnt++;
-				
+
 				writer.begin("td");
 		        writer.attribute("class", "exif");
 				 writer.print(tag.getTagName());
 				writer.end("td");
-				
+
 				writer.begin("td");
 		        writer.attribute("class", "exif");
 				try {
@@ -153,10 +161,10 @@ public abstract class Exif extends BaseComponent {
 				}
 				writer.end("td");
 		        writer.end("tr");
-				
+
 			}
 		}
-    	
+
     }
 
     private void writeDefinedTags(IMarkupWriter writer, Directory exifDir) {
@@ -168,6 +176,9 @@ public abstract class Exif extends BaseComponent {
 //    	aList.add(ExifDirectory.TAG_SHUTTER_SPEED);
     	aList.add(ExifDirectory.TAG_ISO_EQUIVALENT);
     	aList.add(ExifDirectory.TAG_DATETIME_ORIGINAL);
+    	aList.add(ExifDirectory.TAG_SUBJECT_LOCATION);
+    	aList.add(ExifDirectory.TAG_SUBJECT_LOCATION_2);
+
     	Iterator it = aList.iterator();
     	int cnt=0;
     	while (it.hasNext()) {
@@ -179,12 +190,12 @@ public abstract class Exif extends BaseComponent {
 		        writer.attribute("class", "exif-odd");
 			}
 			cnt++;
-			
+
 			writer.begin("td");
 	        writer.attribute("class", "exif");
 			 writer.print(exifDir.getTagName(tagId));
 			writer.end("td");
-			
+
 			writer.begin("td");
 	        writer.attribute("class", "exif");
 			try {
@@ -195,7 +206,7 @@ public abstract class Exif extends BaseComponent {
 			}
 			writer.end("td");
 	        writer.end("tr");
-    		
+
     	}
     }
 
